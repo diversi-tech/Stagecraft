@@ -12,6 +12,7 @@ namespace StagecraftNet.Controllers
         public HomePageController(ILogger<HomePageController> logger)
         {
             _logger = logger;
+            var t = 0;
         }
 
     }
