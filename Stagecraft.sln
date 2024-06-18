@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StagecraftBL", "StagecraftB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StagecraftDAL", "StagecraftDAL\StagecraftDAL.csproj", "{83E81CEE-9794-4148-93FD-371A45640A79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{3A729E60-E83B-4DC7-8967-481CB89A5C7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{3A729E60-E83B-4DC7-8967-481CB89A5C7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
