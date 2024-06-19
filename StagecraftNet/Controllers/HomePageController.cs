@@ -16,6 +16,7 @@ namespace StagecraftNet.Controllers
         public HomePageController(ILogger<HomePageController> logger )
         {
             _logger = logger;
+
             var t = 0;
         }
       
@@ -36,7 +37,7 @@ namespace StagecraftNet.Controllers
         }
 
         [HttpPost]
-        public  IActionResult SignUp([FromBody] UserDetails userDetails) 
+        public  IActionResult SignUp([FromBody] Users userDetails) 
         {
             throw new NotImplementedException();
         }
