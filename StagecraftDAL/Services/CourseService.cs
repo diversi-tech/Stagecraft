@@ -10,10 +10,10 @@ namespace StagecraftDAL.Services
 {
     internal class CourseService
     {
-        public Course GetAllCourses()
-        {
-        return  ExecuteStoredProcedure("getAllCourses",MapCourse,null) ;
-        }
+        //public Course GetAllCourses()
+        //{
+        //return  ExecuteStoredProcedure("getAllCourses",MapCourse,null) ;
+        //}
 
 
     }
