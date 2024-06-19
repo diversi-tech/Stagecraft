@@ -3,19 +3,27 @@
     using System;
     using System.Data;
     using System.Data.SqlClient;
+    using System.Reflection;
+    using System.Configuration;
+    using Microsoft.Extensions.Configuration;
 
-    public class DataAccess
+    public class DataAccess<T>
     {
-        private readonly string connectionString;
+
+        private static string _connection;
+        public IConfiguration _config { get; set; }
+        //private static string ConnectionString = connection.ConnectionString;
 
         public DataAccess(string connectionString)
         {
-            this.connectionString = connectionString;
+           _config = Configuration.ReadConfigValue();
+            _connection = _config["ConnectionStrings:DefaultConnection"];
         }
 
-        public T ExecuteStoredProcedure<T>(string storedProcedureName, Func<IDataReader, T> mapFunction, params SqlParameter[] parameters)
+        public static IEnumerable<T> ExecuteStoredProcedure(string storedProcedureName, params SqlParameter[] parameters)
         {
-            using (var connection = new SqlConnection(connectionString))
+            List<T> result = new List<T>();
+            using (var connection = new SqlConnection(_connection))
             using (var command = new SqlCommand(storedProcedureName, connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -24,11 +32,46 @@
                 connection.Open();
                 using (var reader = command.ExecuteReader())
                 {
-                    return mapFunction(reader);
+                    while (reader.Read())
+                    {
+                        T item = Activator.CreateInstance<T>();
+                        // Map reader columns to item properties here
+                        result.Add(item);
+                    }
                 }
             }
+            return result;
         }
     }
+
+    //public class DataAccess
+    //{
+    //    private  readonly string ConnectionString;
+
+    //    public DataAccess(string connectionString)
+    //    {
+    //       ConnectionString = connectionString;
+    //    }
+
+    //    public static T ExecuteStoredProcedure<T>(string storedProcedureName, Func<IDataReader, T> mapFunction, params SqlParameter[] parameters)
+    //    {
+    //        using (var connection = new SqlConnection(ConnectionString))
+    //        using (var command = new SqlCommand(storedProcedureName, connection))
+    //        {
+    //            command.CommandType = CommandType.StoredProcedure;
+    //            command.Parameters.AddRange(parameters);
+
+    //            connection.Open();
+    //            using (var reader = command.ExecuteReader())
+    //            {
+    //                return mapFunction(reader);
+    //            }
+    //        }
+    //    }
+    //}
+
+
+
 
     //public class MyClass
     //{
