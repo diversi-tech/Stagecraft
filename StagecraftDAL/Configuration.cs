@@ -15,7 +15,7 @@ namespace StagecraftDAL
            .SetBasePath(Directory.GetCurrentDirectory())
            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
            .Build();
-            return config
+            return config;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace StagecraftNet.Controllers
     {
 
         private readonly ILogger<HomePageController> _logger;
-        private readonly List<loginController> users = new List<loginController>
+        private readonly List<loginController> users = new List<loginController>();
 
         public loginController(ILogger<HomePageController> logger )
         {
@@ -20,22 +20,22 @@ namespace StagecraftNet.Controllers
         }
 
 
-        [HttpPost("login")]
+        //[HttpPost("login")]
 
-        public  IActionResult Login([FromBody] UserLoginRequest request)
-        {
-            var user = users.FirstOrDefault(u => u.Email == request.Email && u.Password == request.Password);
-            if (user != null)
-            {
-                return Ok(new { message = "משתמש נמצא במערכת" });
-            }
-             else
-            {
-                return NotFound(new { message = "משתמש לא נמצא במערכת" });
-            }
-            throw new NotImplementedException();    
-        }
-       
+        //public IActionResult Login([FromBody] UserLoginRequest request)
+        //{
+        //    var user = users.FirstOrDefault(u => u.Email == request.Email && u.Password == request.Password);
+        //    if (user != null)
+        //    {
+        //        return Ok(new { message = "משתמש נמצא במערכת" });
+        //    }
+        //    else
+        //    {
+        //        return NotFound(new { message = "משתמש לא נמצא במערכת" });
+        //    }
+        //    throw new NotImplementedException();
+        //}
+
 
 
     }
