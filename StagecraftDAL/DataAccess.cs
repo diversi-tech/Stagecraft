@@ -7,15 +7,16 @@
     using System.Configuration;
     using Microsoft.Extensions.Configuration;
 
-    public class DataAccess<T>
+    public static class DataAccess<T>
     {
 
         private static string _connection;
-        public IConfiguration _config { get; set; }
+        public static IConfiguration? _config { get; set; }
         //private static string ConnectionString = connection.ConnectionString;
-
-        public DataAccess(string connectionString)
+         
+        static DataAccess()
         {
+
            _config = Configuration.ReadConfigValue();
             _connection = _config["ConnectionStrings:DefaultConnection"];
         }
@@ -27,7 +28,10 @@
             using (var command = new SqlCommand(storedProcedureName, connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddRange(parameters);
+                if (parameters != null)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
 
                 connection.Open();
                 using (var reader = command.ExecuteReader())
