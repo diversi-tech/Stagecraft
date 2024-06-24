@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Common;
-using Microsoft.Extensions.Options;
 
 
 namespace StagecraftNet.Controllers
@@ -16,10 +15,13 @@ namespace StagecraftNet.Controllers
         public loginController(ILogger<HomePageController> logger )
         {
             _logger = logger;
-            var t = 0;
         }
 
-
+        [HttpPost]
+        public IActionResult SignUp([FromBody] Users userDetails)
+        {
+            throw new NotImplementedException();
+        }
         //[HttpPost("login")]
 
         //public IActionResult Login([FromBody] UserLoginRequest request)

@@ -17,7 +17,7 @@ namespace StagecraftNet.Controllers
         //public HomePageController()
         //{
         //    _courseService = new CourseService(); // Initialize your CourseService instance
-        //}
+        ////}
         //[HttpGet]
         //public ActionResult Index()
         //{
@@ -43,23 +43,42 @@ namespace StagecraftNet.Controllers
         //    return View(courses);
         //}
         private readonly ILogger<HomePageController> _logger;
-
-        public HomePageController(ILogger<HomePageController> logger )
+        //private readonly CourseService _courseService;
+        public HomePageController(ILogger<HomePageController> logger)
         {
             _logger = logger;
-
+            //_courseService = new CourseService();
+            // Initialize your CourseService instance
             var t = 0;
         }
-      
+
+        [HttpGet]
+        [Route("GetAllCourses")]
+        public ActionResult GetAllCourses()
+        {
+            // קריאה לפונקציה GetAllCourses שב-CourseService
+            try
+            {
+                var t = CourseService.GetAllCourses();
+                return Ok();
+            }
+            // לשלוף נתונים ולשלוף את רשימת הקורסים לתצוגה
+
+            catch (Exception ex)
+            {
+                // הוסף לוגיקה ללוגים כאן
+                return Ok(ex);
+            }
+        }
 
         [HttpGet("{id}")]
 
-        public  IActionResult GetCourseDdetails()
+        public IActionResult GetCourseDdetails()
         {
-            throw new NotImplementedException();    
+            throw new NotImplementedException();
         }
         [HttpGet]
-        public  void GetAvailableCourse()
+        public void GetAvailableCourse()
 
         {
 
@@ -68,12 +87,12 @@ namespace StagecraftNet.Controllers
         }
 
         [HttpPost]
-        public  IActionResult SignUp([FromBody] Users userDetails) 
+        public IActionResult SignUp([FromBody] Users userDetails)
         {
             throw new NotImplementedException();
         }
         [HttpPost("{id}")]
-        public  IActionResult SignUpForACourse([FromQuery] int courseId)
+        public IActionResult SignUpForACourse([FromQuery] int courseId)
         {
             throw new NotImplementedException();
         }
