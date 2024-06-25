@@ -22,23 +22,23 @@ namespace Common
         //public DateTime update_at { get; set; }
 
 
-        public Course MapCourse(IDataReader reader)
-        {
-            if (reader.Read())
-            {
-                Course course = new Course();
+        //public Course MapCourse(IDataReader reader)
+        //{
+        //    if (reader.Read())
+        //    {
+        //        Course course = new Course();
 
-                course.courses_id = Convert.ToInt32(reader["courses_id"]);
-                course.courses_name = reader["courses_name"].ToString();
-                course.title = reader["title"].ToString();
-                course.description = reader["description"].ToString();
-                course.Price = Convert.ToInt32(reader["Price"]);
-                //Recommendations = new List<Recommendation>();
+        //        course.courses_id = Convert.ToInt32(reader["courses_id"]);
+        //        course.courses_name = reader["courses_name"].ToString();
+        //        course.title = reader["title"].ToString();
+        //        course.description = reader["description"].ToString();
+        //        course.Price = Convert.ToInt32(reader["Price"]);
+        //        //Recommendations = new List<Recommendation>();
 
-                return course;
-            }
-            return null;
-        }
+        //        return course;
+        //    }
+        //    return null;
+        //}
 
 
 

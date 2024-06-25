@@ -60,7 +60,7 @@ namespace StagecraftNet.Controllers
             try
             {
                 var t = CourseService.GetAllCourses();
-                return Ok();
+                return Ok(t);
             }
             // לשלוף נתונים ולשלוף את רשימת הקורסים לתצוגה
 
