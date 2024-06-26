@@ -29,8 +29,20 @@ namespace StagecraftDAL
             }
             return list;
         }
-
-        private static bool HasColumn(SqlDataReader dr, string columnName)
+        public static T MapToObj<T>(SqlDataReader dr) where T : new()
+        {
+            T obj = new T();
+            var properties = typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            foreach (var property in properties)
+            {
+                if (HasColumn(dr, property.Name) && dr[property.Name] != DBNull.Value)
+                {
+                    property.SetValue(obj, dr[property.Name]);
+                }
+            }
+            return (T)obj;
+        }
+    private static bool HasColumn(SqlDataReader dr, string columnName)
         {
             for (int i = 0; i < dr.FieldCount; i++)
             {
