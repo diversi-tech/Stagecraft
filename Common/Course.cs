@@ -22,7 +22,7 @@ namespace Common
         //public DateTime update_at { get; set; }
 
 
-        //public Course MapCourse(IDataReader reader)
+        //public Course MapCourse(SqlDataReader _reader)
         //{
         //    if (reader.Read())
         //    {

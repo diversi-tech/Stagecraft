@@ -12,7 +12,7 @@ namespace StagecraftDAL.Services
         public static IEnumerable<Course>  GetAllCourses()
         {
             Course course = new Course();
-            var t = DataAccess<Course>.ExecuteStoredProcedure("getAllCourses", null);
+            var t = DataAccess.ExecuteStoredProcedure<Course>("getAllCourses", null);
             return t;
         }
 

@@ -7,7 +7,7 @@
     using System.Configuration;
     using Microsoft.Extensions.Configuration;
 
-    public static class DataAccess<T>
+    public static class DataAccess
     {
 
         private static string _connection;
@@ -21,7 +21,7 @@
             _connection = _config["ConnectionStrings:DefaultConnection"];
         }
 
-        public static IEnumerable<T> ExecuteStoredProcedure(string storedProcedureName, params SqlParameter[] parameters)
+        public static IEnumerable<T> ExecuteStoredProcedure<T>(string storedProcedureName, params SqlParameter[] parameters) where T : new()
         {
             List<T> result = new List<T>();
             using (var connection = new SqlConnection(_connection))
@@ -34,19 +34,15 @@
                 }
 
                 connection.Open();
-                using (var reader = command.ExecuteReader())
+                using (SqlDataReader dr = command.ExecuteReader())
                 {
-                    while (reader.Read())
-                    {
-                        T item = Activator.CreateInstance<T>();
-                        // Map reader columns to item properties here
-                        result.Add(item);
-                    }
+                    result = DataMapper.MapToList<T>(dr);
                 }
             }
             return result;
         }
-    }
+
+      }
 
     //public class DataAccess
     //{
