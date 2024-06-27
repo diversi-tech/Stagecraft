@@ -70,6 +70,42 @@ namespace StagecraftNet.Controllers
                 return Ok(ex);
             }
         }
+        [HttpGet()]
+        [Route("CheckIfEmailExists/{email}")]
+        public ActionResult CheckIfEmailExists(string email)
+        {
+            // קריאה לפונקציה GetAllCourses שב-CourseService
+            try
+            {
+                var t = UsersService.CheckIfEmailExists(email);
+                return Ok(t);
+            }
+            // לשלוף נתונים ולשלוף את רשימת הקורסים לתצוגה
+
+            catch (Exception ex)
+            {
+                // הוסף לוגיקה ללוגים כאן
+                return Ok(ex);
+            }
+        }
+        [HttpGet()]
+        [Route("GETCOURSEBYID/{id}")]
+        public ActionResult GETCOURSEBYID(int id)
+        {
+            // קריאה לפונקציה GetAllCourses שב-CourseService
+            try
+            {
+                var t = CourseService.GETCOURSEBYID(id)[0];
+                return Ok(t);
+            }
+            // לשלוף נתונים ולשלוף את רשימת הקורסים לתצוגה
+
+            catch (Exception ex)
+            {
+                // הוסף לוגיקה ללוגים כאן
+                return Ok(ex);
+            }
+        }
 
         [HttpGet("{id}")]
 
