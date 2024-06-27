@@ -6,6 +6,8 @@
     using System.Reflection;
     using System.Configuration;
     using Microsoft.Extensions.Configuration;
+    using Common;
+    using System.Data.Common;
 
     public static class DataAccess
     {
@@ -21,28 +23,67 @@
             _connection = _config["ConnectionStrings:DefaultConnection"];
         }
 
-        public static IEnumerable<T> ExecuteStoredProcedure<T>(string storedProcedureName, params SqlParameter[] parameters) where T : new()
+      //  public static IEnumerable<T> ExecuteStoredProcedure<T>(string storedProcedureName, params SqlParameter[] parameters) where T : new()
+      //  {
+      //      List<T> result = new List<T>();
+      //      using (var connection = new SqlConnection(_connection))
+      //      using (var command = new SqlCommand(storedProcedureName, connection))
+      //      {
+      //          command.CommandType = CommandType.StoredProcedure;
+      //          if (parameters != null)
+      //          {
+      //              command.Parameters.AddRange(parameters);
+      //          }
+
+      //          connection.Open();
+      //          using (SqlDataReader dr = command.ExecuteReader())
+      //          {
+      //              result = DataMapper.MapToList<T>(dr);
+      //          }
+      //      }
+      //      return result;
+      //  }
+
+      //}
+    public static T ExecuteStoredProcedure<T>(string storedProcedureName, params SqlParameter[] parameters)
+    {
+        using (var connection = new SqlConnection(_connection))
+        using (var command = new SqlCommand(storedProcedureName, connection))
         {
-            List<T> result = new List<T>();
-            using (var connection = new SqlConnection(_connection))
-            using (var command = new SqlCommand(storedProcedureName, connection))
+            command.CommandType = CommandType.StoredProcedure;
+            if (parameters != null)
             {
-                command.CommandType = CommandType.StoredProcedure;
-                if (parameters != null)
+                command.Parameters.AddRange(parameters);
+            }
+
+            connection.Open();
+            object myresult = command.ExecuteScalar();
+            using (SqlDataReader dr = command.ExecuteReader())
+            {
+                if (typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(List<>))
                 {
-                    command.Parameters.AddRange(parameters);
+                    // Handle IEnumerable<T>
+                    Type itemType = typeof(T).GetGenericArguments()[0];
+                    var method = typeof(DataMapper).GetMethod(nameof(DataMapper.MapToList)).MakeGenericMethod(itemType);
+                    var result = method.Invoke(null, new object[] { dr });
+                    return (T)result;
                 }
 
-                connection.Open();
-                using (SqlDataReader dr = command.ExecuteReader())
+                else if (myresult != null && myresult != DBNull.Value)
                 {
-                    result = DataMapper.MapToList<T>(dr);
+                    return (T)Convert.ChangeType(myresult, typeof(T));
+                }
+                else
+                {
+                    throw new InvalidOperationException("Unsupported return type");
                 }
             }
-            return result;
         }
+    }
+}
+}
 
-      }
+
 
     //public class DataAccess
     //{
@@ -107,4 +148,3 @@
     //        Console.WriteLine($"Id: {result.Id}, Name: {result.Name}");
     //    }
     //}
-}
