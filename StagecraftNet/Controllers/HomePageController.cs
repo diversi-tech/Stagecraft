@@ -37,12 +37,12 @@ namespace StagecraftNet.Controllers
             }
         }
         [HttpGet()]
-        [Route("CheckIfEmailExists/{email}")]
-        public ActionResult CheckIfEmailExists(string email)
+        [Route("CheckIfEmailExist/{email}")]
+        public ActionResult CheckIfEmailExist(string email)
         {
             try
             {
-                var t = UsersService.CheckIfEmailExists(email);
+                var t = UsersService.CheckIfEmailExist(email);
                 return Ok(t);
             }
 
@@ -52,13 +52,12 @@ namespace StagecraftNet.Controllers
             }
         }
         [HttpGet()]
-        [Route("getCourserById/{id}")]
-        public ActionResult GETCOURSEBYID(int id)
+        [Route("GetCoursById/{id}")]
+        public ActionResult GetCoursById(int id)
         {
             try
             {
-                //var t = CourseService.GETCOURSEBYID(id)?[0]??null;
-                var t = CourseService.GETCOURSEBYID(id);
+                var t = CourseService.GetCoursById(id);
                 return Ok(t);
 
             }

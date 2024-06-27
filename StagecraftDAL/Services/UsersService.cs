@@ -9,10 +9,10 @@ namespace StagecraftDAL.Services
 {
     public class UsersService
     {
-        public static bool CheckIfEmailExists(string email)
+        public static bool CheckIfEmailExist(string email)
         {
             SqlParameter param1 = new SqlParameter("@email", email);
-            var t = DataAccess.ExecuteStoredProcedure<bool>("CheckIfEmailExists", param1);
+            var t = DataAccess.ExecuteStoredProcedure<bool>("checkIfEmailExist", param1);
             return t;
         }
     }

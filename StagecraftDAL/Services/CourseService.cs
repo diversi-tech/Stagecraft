@@ -16,10 +16,10 @@ namespace StagecraftDAL.Services
             return t;
         }
 
-        public static List<Course> GETCOURSEBYID(int courses_id)
+        public static List<Course> GetCoursById(int courses_id)
         {
             SqlParameter param1 = new SqlParameter("@courses_id", courses_id);
-            var t = DataAccess.ExecuteStoredProcedure<List<Course>>("GETCOURSEBYID", param1);
+            var t = DataAccess.ExecuteStoredProcedure<List<Course>>("getCoursById", param1);
             return t;
         }
     }
