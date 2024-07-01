@@ -37,8 +37,8 @@ namespace StagecraftApi.Controllers
         }
 
         // Add a new course
-        [HttpPost]
-        public ActionResult<AdminCourse> AddAdminCourses([FromBody] AdminCourse course)
+        [HttpPost("AddAdminCourses")]
+        public ActionResult<AdminCourse> AddAdminCourses([FromBody] AdminCourse course) 
         {
         //    if (!ModelState.IsValid)
         //    {

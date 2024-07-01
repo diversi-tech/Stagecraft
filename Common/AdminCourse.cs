@@ -16,7 +16,7 @@ namespace Common
         public DateTime update_at { get; set; }
         public int price { get; set; }
         public int Several_chapters { get; set; }
-        public TimeOnly? Length { get; set; }
+        public string Length { get; set; }
         public int numberOfViewers { get; set; }
 
 
