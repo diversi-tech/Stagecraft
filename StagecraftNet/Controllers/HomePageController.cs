@@ -82,15 +82,32 @@ namespace StagecraftNet.Controllers
             throw new NotImplementedException();
         }
 
-        [HttpPost]
-        public IActionResult SignUp([FromBody] Users userDetails)
+        [HttpPost("signup")]
+        public IActionResult SignUp([FromBody] Users user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                UsersService.SignUp(user);
+                return Ok("User signed up successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
-        [HttpPost("{id}")]
-        public IActionResult SignUpForACourse([FromQuery] int courseId)
+        //[HttpPost("{id}")]
+        [HttpPost("signup-course")]
+        public IActionResult SignUpForACourse([FromBody] int courseId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                UsersService.SignUpForACourse(courseId);
+                return Ok("Signed up for course successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
 

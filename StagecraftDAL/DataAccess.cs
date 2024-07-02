@@ -40,6 +40,7 @@
                         var result = method.Invoke(null, new object[] { dr });
                         return (T)result;
                     }
+                   
 
                     else if (myresult != null && myresult != DBNull.Value)
                     {
@@ -50,6 +51,21 @@
                         throw new InvalidOperationException("Unsupported return type");
                     }
                 }
+            }
+        }
+        public static void ExecuteStoredProcedure(string storedProcedureName, params SqlParameter[] parameters)
+        {
+            using (var connection = new SqlConnection(_connection))
+            using (var command = new SqlCommand(storedProcedureName, connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                if (parameters != null)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+
+                connection.Open();
+                command.ExecuteNonQuery();
             }
         }
     }

@@ -1,10 +1,5 @@
 ﻿using Common;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StagecraftDAL.Services
 {
@@ -12,7 +7,7 @@ namespace StagecraftDAL.Services
     {
         public static List<Course>  GetAllCourses()
         {
-            var t = DataAccess.ExecuteStoredProcedure<List<Course>>("getAllCourses", null);
+            var t = DataAccess.ExecuteStoredProcedure<List<Course>>("GetAllCourses", null);
             return t;
         }
 
@@ -22,5 +17,14 @@ namespace StagecraftDAL.Services
             var t = DataAccess.ExecuteStoredProcedure<List<Course>>("getCoursById", param1);
             return t;
         }
+
+       
+        public static List<Course> GetCourseDetails()
+        {
+            var t = DataAccess.ExecuteStoredProcedure<List<Course>>("getAllCourses", null);
+            return t;
+        }
+
+
     }
 }
