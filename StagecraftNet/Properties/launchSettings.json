@@ -1,4 +1,4 @@
-{
+//{
   "profiles": {
     "http": {
       "commandName": "Project",
@@ -18,7 +18,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:5128;"
+      "applicationUrl": "http://localhost:5128"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -39,4 +39,3 @@
     }
   }
 }
-{

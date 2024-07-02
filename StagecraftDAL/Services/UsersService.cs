@@ -5,11 +5,14 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+using Microsoft.Extensions.Configuration;
 
 namespace StagecraftDAL.Services
 {
-    public class UsersService
+    public class UsersService : IUserDAL
     {
+
         public static bool CheckIfEmailExist(string email)
         {
             SqlParameter param1 = new SqlParameter("@EmailToCheck", email);
@@ -36,11 +39,14 @@ namespace StagecraftDAL.Services
              DataAccess.ExecuteStoredProcedure("SignUpForACourse", param1);
            
         }
-        public int GetUserProgress(int UserId, int CoursId)
+   
+
+
+        public  int GetUserProgress(int  UserId,int CoursId )
         {
-            SqlParameter param1 = new SqlParameter("@UserId", UserId);
-            SqlParameter param2 = new SqlParameter("@CoursId", CoursId);
-            var t = DataAccess.ExecuteStoredProcedure<int>("GetUserProgress", param1, param2);
+            SqlParameter param1 = new SqlParameter("@UserId", UserId ) ;
+            SqlParameter param2 = new SqlParameter( "@CoursId", CoursId);
+            var t = DataAccess.ExecuteStoredProcedure<int>("GetUserProgress", param1,param2);
             return t;
         }
 

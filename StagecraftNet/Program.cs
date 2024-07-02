@@ -3,6 +3,10 @@ using StagecraftDAL.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 
+builder.Services.AddScoped<IUserDAL, UsersService>();
+builder.Services.AddScoped<IAdminCourseService, AdminCourseServices>();
+// Add services to the container.
+
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -18,8 +22,17 @@ builder.Services.AddCors(options =>
     });
 });
 
-var app = builder.Build();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularClient", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -28,6 +41,8 @@ if (app.Environment.IsDevelopment())
 }
 app.UseRouting();
 app.UseCors("AllowAngularClient");
+ 
+
 
 app.UseHttpsRedirection();
 
