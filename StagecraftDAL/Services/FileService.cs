@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StagecraftDAL.Interface
+namespace StagecraftDAL.Services
 {
-    public interface IUserDAL
+    internal class FileService
     {
-        int GetUserProgress(int userId, int courseId);
     }
 }

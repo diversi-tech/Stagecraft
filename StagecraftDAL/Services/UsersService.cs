@@ -52,10 +52,10 @@ namespace StagecraftDAL.Services
    
 
 
-        public  int GetUserProgress(int  UserId,int CoursId )
+        public int GetUserProgress(int  UserId,int CourseId )
         {
             SqlParameter param1 = new SqlParameter("@UserId", UserId ) ;
-            SqlParameter param2 = new SqlParameter( "@CoursId", CoursId);
+            SqlParameter param2 = new SqlParameter( "@CourseId", CourseId);
             var t = DataAccess.ExecuteStoredProcedure<int>("GetUserProgress", param1,param2);
             return t;
         }
