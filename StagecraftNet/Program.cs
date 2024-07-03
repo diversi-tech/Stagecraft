@@ -4,8 +4,9 @@ using StagecraftDAL.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddScoped<IUserDAL, UsersService>();
-builder.Services.AddScoped<IAdmin, Admin>();
+builder.Services.AddScoped<IUser, UsersService>();
+builder.Services.AddScoped<IAdmin, AdminService>();
+builder.Services.AddScoped<ICourse, CourseService>();
 // Add services to the container.
 
 // Add services to the container.

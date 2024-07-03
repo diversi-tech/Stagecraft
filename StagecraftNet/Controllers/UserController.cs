@@ -11,9 +11,9 @@ namespace StagecraftApi.Controllers
     public class UserController : ControllerBase
     {
 
-        private readonly IUserDAL _userDAL;
+        private readonly IUser _userDAL;
 
-        public UserController(IUserDAL UsersService)
+        public UserController(IUser UsersService)
         {
             _userDAL = UsersService;
         }

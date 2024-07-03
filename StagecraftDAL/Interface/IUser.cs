@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StagecraftDAL.Interface
 {
-    public interface IUserDAL
+    public interface IUser
     {
         double GetUserProgress(int userId, int courseId);
     }

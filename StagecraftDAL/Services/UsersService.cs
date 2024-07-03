@@ -13,7 +13,7 @@ using StagecraftDAL.Interface;
 
 namespace StagecraftDAL.Services
     {
-        public class UsersService : IUserDAL
+        public class UsersService : IUser
         {
             private readonly string _connectionString;
 
@@ -60,7 +60,7 @@ namespace StagecraftDAL.Services
             return t;
         }
 
-        double IUserDAL.GetUserProgress(int userId, int courseId)
+        double IUser.GetUserProgress(int userId, int courseId)
         {
             throw new NotImplementedException();
         }

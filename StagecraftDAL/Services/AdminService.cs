@@ -9,7 +9,7 @@ using StagecraftDAL.Interface;
 
 namespace StagecraftDAL.Services
 {
-    public class Admin: IAdmin
+    public class AdminService: IAdmin
     {
         private List<AdminCourse> _courses = new List<AdminCourse>();
 
