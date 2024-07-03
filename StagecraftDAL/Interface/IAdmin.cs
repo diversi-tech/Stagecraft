@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Common;
 
-namespace StagecraftDAL.Services
+namespace StagecraftDAL.Interface
 {
-    public interface IAdminCourseService
+    public interface IAdmin
     {
         List<AdminCourse> GetAllAdminCourses();
         AdminCourse GetAdminCourseById(int id);
         AdminCourse AddAdminCourses(AdminCourse course);
         AdminCourse UpdateAdminCourses(int id, AdminCourse updatedCourse);
-       
+        List<Users> GetAllUsers();
+
     }
 }

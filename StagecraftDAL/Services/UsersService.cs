@@ -59,6 +59,11 @@ namespace StagecraftDAL.Services
             var t = DataAccess.ExecuteStoredProcedure<int>("GetUserProgress", param1,param2);
             return t;
         }
+
+        double IUserDAL.GetUserProgress(int userId, int courseId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

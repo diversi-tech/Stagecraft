@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common;
+using StagecraftDAL.Interface;
 
 
 namespace StagecraftDAL.Services
 {
-    public class AdminCourseServices: IAdminCourseService
+    public class Admin: IAdmin
     {
         private List<AdminCourse> _courses = new List<AdminCourse>();
 
@@ -45,6 +46,11 @@ namespace StagecraftDAL.Services
             course.Length = updatedCourse.Length;
             course.numberOfViewers = updatedCourse.numberOfViewers;
             return course;
+        }
+        public List<Users> GetAllUsers()
+        {
+            var t = DataAccess.ExecuteStoredProcedure<List<Users>>("GetAllUsers", null);
+            return t;
         }
     }
 }
