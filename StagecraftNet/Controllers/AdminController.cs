@@ -9,18 +9,18 @@ namespace StagecraftApi.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
-        private readonly IAdminCourseService _adminCourseService;
-
-        public AdminController(IAdminCourseService adminCourseService)
+        private readonly IAdmin _admin;
+        public AdminController(IAdmin admin)
         {
-            _adminCourseService = adminCourseService;
+            _admin = admin;
+            
         }
 
         // Get all courses
         [HttpGet("GetAllAdminCourses")]
         public ActionResult<IEnumerable<AdminCourse>> GetAllAdminCourses()
         {
-            var courses = _adminCourseService.GetAllAdminCourses();
+            var courses = _admin.GetAllAdminCourses();
             return Ok(courses);
         }
 
@@ -28,7 +28,7 @@ namespace StagecraftApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<AdminCourse> GetAdminCourseById(int id)
         {
-            var course = _adminCourseService.GetAdminCourseById(id);
+            var course = _admin.GetAdminCourseById(id);
             if (course == null)
             {
                 return NotFound();
@@ -44,7 +44,7 @@ namespace StagecraftApi.Controllers
         //    {
         //        return BadRequest(ModelState);
         //    }
-            var newCourse = _adminCourseService.AddAdminCourses(course);
+            var newCourse = _admin.AddAdminCourses(course);
             return CreatedAtAction(nameof(GetAdminCourseById), new { id = newCourse.courses_id }, newCourse);
         }
 
@@ -56,12 +56,27 @@ namespace StagecraftApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var updatedCourse = _adminCourseService.UpdateAdminCourses(id, course);
+            var updatedCourse = _admin.UpdateAdminCourses(id, course);
             if (updatedCourse == null)
             {
                 return NotFound();
             }
             return NoContent();
+        }
+        [HttpGet()]
+        [Route("GetAllUsers")]
+        public ActionResult GetAllUsers()
+        {
+            try
+            {
+                var t = _admin.GetAllUsers();
+                return Ok(t);
+            }
+
+            catch (Exception ex)
+            {
+                return Ok(ex);
+            }
         }
     }
 }

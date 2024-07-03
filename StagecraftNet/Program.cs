@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddScoped<IUserDAL, UsersService>();
-builder.Services.AddScoped<IAdminCourseService, AdminCourseServices>();
+builder.Services.AddScoped<IAdmin, Admin>();
 // Add services to the container.
 
 // Add services to the container.

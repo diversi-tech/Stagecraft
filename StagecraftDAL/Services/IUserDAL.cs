@@ -9,5 +9,6 @@ namespace StagecraftDAL.Services
     public interface IUserDAL
     {
         int GetUserProgress(int userId, int courseId);
+
     }
 }

@@ -7,12 +7,12 @@ using Common;
 
 namespace StagecraftDAL.Services
 {
-    public interface IAdminCourseService
+    public interface IAdmin
     {
         List<AdminCourse> GetAllAdminCourses();
         AdminCourse GetAdminCourseById(int id);
         AdminCourse AddAdminCourses(AdminCourse course);
         AdminCourse UpdateAdminCourses(int id, AdminCourse updatedCourse);
-       
+        List<Users> GetAllUsers();
     }
 }
