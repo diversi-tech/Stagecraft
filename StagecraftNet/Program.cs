@@ -1,3 +1,4 @@
+using StagecraftDAL.Interface;
 using StagecraftDAL.Services;
 
 var builder = WebApplication.CreateBuilder(args);

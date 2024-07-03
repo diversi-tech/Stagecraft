@@ -7,12 +7,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using Microsoft.Extensions.Configuration;
+using StagecraftDAL.Interface;
+
+
 
 namespace StagecraftDAL.Services
-{
-    public class UsersService : IUserDAL
     {
+        public class UsersService : IUserDAL
+        {
+            private readonly string _connectionString;
 
+            public UsersService(IConfiguration configuration)
+            {
+                _connectionString = configuration.GetConnectionString("DefaultConnection");
+            }
+
+           
         public static bool CheckIfEmailExist(string email)
         {
             SqlParameter param1 = new SqlParameter("@EmailToCheck", email);
@@ -49,6 +59,13 @@ namespace StagecraftDAL.Services
             var t = DataAccess.ExecuteStoredProcedure<int>("GetUserProgress", param1,param2);
             return t;
         }
-
     }
 }
+
+
+
+
+
+
+
+

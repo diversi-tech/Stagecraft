@@ -1,7 +1,7 @@
 ﻿
 
 using Microsoft.AspNetCore.Mvc;
-using StagecraftDAL.Services;
+using StagecraftDAL.Interface;
 using StagecraftNet.Controllers;
 
 namespace StagecraftApi.Controllers
@@ -18,8 +18,7 @@ namespace StagecraftApi.Controllers
             _userDAL = UsersService;
         }
 
-        [HttpGet()]
-        [Route("GetUserProgress/{userId}/{courseId}")]
+        [HttpGet("{userId}/{courseId}")]
         public  IActionResult GetUserProgress(int userId, int courseId)
         {
             var progress =  _userDAL.GetUserProgress(userId, courseId);
