@@ -24,6 +24,25 @@ namespace StagecraftNet.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllClass")]
+        public ActionResult GetAllClass()
+        {
+            // קריאה לפונקציה GetAllClass שב-CourseService
+            try
+            {
+                var t = CourseService.GetAllClass();
+                return Ok(t);
+            }
+            // לשלוף נתונים ולשלוף את רשימת הכלסים לתצוגה
+
+            catch (Exception ex)
+            {
+                // הוסף לוגיקה ללוגים כאן
+                return Ok(ex);
+            }
+        }
+
+        [HttpGet]
         [Route("GetAllCourses")]
         public ActionResult GetAllCourses()
         {

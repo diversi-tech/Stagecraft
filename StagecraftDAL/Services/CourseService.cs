@@ -6,6 +6,11 @@ namespace StagecraftDAL.Services
 {
     public class CourseService: ICourse
     {
+        public static List<Classes> GetAllClass()
+        {
+            var t = DataAccess.ExecuteStoredProcedure<List<Classes>>("GetAllClass", null);
+            return t;
+        }
         public  List<Course>  GetAllCourses()
         {
             var t = DataAccess.ExecuteStoredProcedure<List<Course>>("GetAllCourses", null);
