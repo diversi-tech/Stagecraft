@@ -38,12 +38,12 @@ namespace StagecraftApi.Controllers
 
         // Add a new course
         [HttpPost("AddAdminCourses")]
-        public ActionResult<AdminCourse> AddAdminCourses([FromBody] AdminCourse course) 
+        public ActionResult<AdminCourse> AddAdminCourses([FromBody] AdminCourse course)
         {
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+            //    if (!ModelState.IsValid)
+            //    {
+            //        return BadRequest(ModelState);
+            //    }
             var newCourse = _admin.AddAdminCourses(course);
             return CreatedAtAction(nameof(GetAdminCourseById), new { id = newCourse.courses_id }, newCourse);
         }
@@ -70,6 +70,61 @@ namespace StagecraftApi.Controllers
             try
             {
                 var t = _admin.GetAllUsers();
+                return Ok(t);
+            }
+
+            catch (Exception ex)
+            {
+                return Ok(ex);
+            }
+        }
+        [HttpGet()]
+        [Route("GetAllCoursOfUser/{userId}")]
+        public ActionResult GetAllCoursOfUser(int userId)
+        {
+            try
+            {
+                var t = _admin.GetAllCoursOfUser(userId);
+                return Ok(t);
+            }
+
+            catch (Exception ex)
+            {
+                return Ok(ex);
+            }
+        }
+        [HttpPost("AddCoursToUser")]
+        public ActionResult AddCoursToUser([FromBody] UserCourses userCourses)
+        {
+            if (userCourses == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                try
+                {
+                    var t = _admin.AddCoursToUser(userCourses);
+                    return Ok(t);
+                }
+
+                catch (Exception ex)
+                {
+                    return Ok(ex);
+                }
+            }
+
+        }
+
+
+    [HttpDelete("DeletCoursToUser")]
+        public ActionResult DeletCoursToUser([FromBody] UserCourses userCourses)
+        {
+            if (userCourses == null)
+                return BadRequest();
+            try
+            {
+                var t = _admin.DeletCoursToUser(userCourses);
                 return Ok(t);
             }
 

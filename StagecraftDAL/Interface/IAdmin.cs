@@ -14,6 +14,9 @@ namespace StagecraftDAL.Interface
         AdminCourse AddAdminCourses(AdminCourse course);
         AdminCourse UpdateAdminCourses(int id, AdminCourse updatedCourse);
         List<Users> GetAllUsers();
+        bool AddCoursToUser(UserCourses userCourses);
+        bool DeletCoursToUser(UserCourses userCourses);
+       List< UserCourses> GetAllCoursOfUser(int userId);
 
     }
 }
