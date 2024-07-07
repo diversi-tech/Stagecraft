@@ -19,15 +19,17 @@ namespace StagecraftApi.Controllers
         }
 
         [HttpGet("{userId}/{courseId}")]
-        public  IActionResult GetUserProgress(int userId, int courseId)
+        public IActionResult GetUserProgress(int userId, int courseId)
         {
-            var progress =  _userDAL.GetUserProgress(userId, courseId);
-            if (progress == null)
+            try
+            {
+                var progress = _userDAL.GetUserProgress(userId, courseId);
+                return Ok(progress);
+            }
+            catch (Exception ex)
             {
                 return NotFound();
             }
-
-            return Ok(progress);
         }
     }
 }
