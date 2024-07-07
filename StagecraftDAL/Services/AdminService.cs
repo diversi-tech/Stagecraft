@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,6 +52,31 @@ namespace StagecraftDAL.Services
         {
             var t = DataAccess.ExecuteStoredProcedure<List<Users>>("GetAllUsers", null);
             return t;
+        }
+
+        public bool AddCoursToUser(UserCourses userCourses)
+        {
+            SqlParameter param1 = new SqlParameter("@userId", userCourses.user_id);
+            SqlParameter param2 = new SqlParameter("@coursId", userCourses.courses_id);
+            SqlParameter param3 = new SqlParameter("@isApproved", userCourses.is_approved);
+            var t = DataAccess.ExecuteStoredProcedure<bool>("AddCoursToUser", param1, param2, param3);
+            return t;
+        }
+
+        public bool DeletCoursToUser(UserCourses userCourses)
+        {
+            SqlParameter param1 = new SqlParameter("@userId", userCourses.user_id);
+            SqlParameter param2 = new SqlParameter("@coursId", userCourses.courses_id);
+            var t = DataAccess.ExecuteStoredProcedure<bool>("DeletCoursToUser", param1, param2);
+            return t;
+        }
+
+        public List<UserCourses> GetAllCoursOfUser(int userId)
+        {
+            SqlParameter param1 = new SqlParameter("@userId", userId);
+            var t = DataAccess.ExecuteStoredProcedure<List<UserCourses>>("GetAllCoursOfUser", param1);
+            return t;
+
         }
     }
 }
