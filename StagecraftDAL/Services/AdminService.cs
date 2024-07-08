@@ -56,17 +56,17 @@ namespace StagecraftDAL.Services
 
         public bool AddCoursToUser(UserCourses userCourses)
         {
-            SqlParameter param1 = new SqlParameter("@userId", userCourses.user_id);
-            SqlParameter param2 = new SqlParameter("@coursId", userCourses.courses_id);
-            SqlParameter param3 = new SqlParameter("@isApproved", userCourses.is_approved);
+            SqlParameter param1 = new SqlParameter("@userId", userCourses.userId);
+            SqlParameter param2 = new SqlParameter("@coursId", userCourses.coursesId);
+            SqlParameter param3 = new SqlParameter("@isApproved", userCourses.isApproved);
             var t = DataAccess.ExecuteStoredProcedure<bool>("AddCoursToUser", param1, param2, param3);
             return t;
         }
 
         public bool DeletCoursToUser(UserCourses userCourses)
         {
-            SqlParameter param1 = new SqlParameter("@userId", userCourses.user_id);
-            SqlParameter param2 = new SqlParameter("@coursId", userCourses.courses_id);
+            SqlParameter param1 = new SqlParameter("@userId", userCourses.userId);
+            SqlParameter param2 = new SqlParameter("@coursId", userCourses.coursesId);
             var t = DataAccess.ExecuteStoredProcedure<bool>("DeletCoursToUser", param1, param2);
             return t;
         }
