@@ -16,7 +16,7 @@ namespace StagecraftDAL.Interface
         List<Users> GetAllUsers();
         bool AddCoursToUser(UserCourses userCourses);
         bool DeletCoursToUser(UserCourses userCourses);
-       List< UserCourses> GetAllCoursOfUser(int userId);
+       List<Course> GetAllCoursOfUser(int userId);
 
     }
 }

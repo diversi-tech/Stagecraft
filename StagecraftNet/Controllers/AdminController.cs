@@ -117,7 +117,7 @@ namespace StagecraftApi.Controllers
         }
 
 
-    [HttpDelete("DeletCoursToUser")]
+        [HttpDelete("DeletCoursToUser")]
         public ActionResult DeletCoursToUser([FromBody] UserCourses userCourses)
         {
             if (userCourses == null)

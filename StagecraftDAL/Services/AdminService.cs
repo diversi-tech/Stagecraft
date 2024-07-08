@@ -71,10 +71,10 @@ namespace StagecraftDAL.Services
             return t;
         }
 
-        public List<UserCourses> GetAllCoursOfUser(int userId)
+        public List<Course> GetAllCoursOfUser(int userId)
         {
             SqlParameter param1 = new SqlParameter("@userId", userId);
-            var t = DataAccess.ExecuteStoredProcedure<List<UserCourses>>("GetAllCoursOfUser", param1);
+            var t = DataAccess.ExecuteStoredProcedure<List<Course>>("GetAllCoursOfUser", param1);
             return t;
 
         }

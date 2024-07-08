@@ -8,7 +8,7 @@ namespace Common
 {
     public class UserCourses
     {
-        public int user_course_id { get; set; }
+        public int userCourseId { get; set; }
         public int userId { get; set; }
         public int coursesId { get; set; }
         public int progress { get; set; }
