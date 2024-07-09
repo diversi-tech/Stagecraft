@@ -9,8 +9,11 @@ namespace StagecraftDAL.Interface
 {
     public interface ICourse
     {
+     
         List<Course> GetAllCourses();
+        //warning!!!-
         List<Course> GetCourseDetails();
-        List<Course> GetCoursById(int courses_id);
+        List<Course> GetCourseById(int courses_id);
+        List<Course> GetCoursesByUserId(int userId);
     }
 }

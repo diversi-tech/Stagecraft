@@ -62,12 +62,12 @@ namespace StagecraftNet.Controllers
         }
         
         [HttpGet()]
-        [Route("GetCoursById/{id}")]
-        public ActionResult GetCoursById(int id)
+        [Route("GetCourseById/{id}")]
+        public ActionResult GetCourseById(int id)
         {
             try
             {
-                var t = _Course.GetCoursById(id);
+                var t = _Course.GetCourseById(id);
                 return Ok(t);
 
             }

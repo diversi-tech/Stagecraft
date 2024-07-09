@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+
     public class AdminCourse
     {
         public int courses_id { get; set; }

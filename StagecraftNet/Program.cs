@@ -10,6 +10,7 @@ builder.Services.AddScoped<IFile, FileService>();
 builder.Services.AddScoped<ICourse, CourseService>();
 builder.Services.AddScoped<IVideoService, VideoService>();
 builder.Services.AddScoped<ITranscriptSegmentService, TranscriptSegmentService>();
+
 // Add services to the container.
 
 // Add services to the container.
