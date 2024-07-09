@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using System.Data.SqlClient;
+using Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StagecraftDAL.Services;
@@ -9,6 +10,7 @@ namespace StagecraftApi.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
+
         private readonly IAdminCourseService _adminCourseService;
 
         public AdminController(IAdminCourseService adminCourseService)
@@ -25,7 +27,7 @@ namespace StagecraftApi.Controllers
         }
 
         // Get a course by ID
-        [HttpGet("{id}")]
+        [HttpGet("GetAdminCourseById/{id}")]
         public ActionResult<AdminCourse> GetAdminCourseById(int id)
         {
             var course = _adminCourseService.GetAdminCourseById(id);
@@ -40,16 +42,17 @@ namespace StagecraftApi.Controllers
         [HttpPost("AddAdminCourses")]
         public ActionResult<AdminCourse> AddAdminCourses([FromBody] AdminCourse course) 
         {
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+            if (!ModelState.IsValid) 
+                {
+                return BadRequest(ModelState);
+                }
             var newCourse = _adminCourseService.AddAdminCourses(course);
-            return CreatedAtAction(nameof(GetAdminCourseById), new { id = newCourse.courses_id }, newCourse);
+            return CreatedAtAction(nameof(AddAdminCourses), new { id = course.courses_id }, course);
+           
         }
 
         // Update an existing course
-        [HttpPut("{id}")]
+        [HttpPut("UpdateAdminCourses/{id}")]
         public IActionResult UpdateAdminCourses(int id, [FromBody] AdminCourse course)
         {
             if (!ModelState.IsValid)
@@ -63,5 +66,16 @@ namespace StagecraftApi.Controllers
             }
             return NoContent();
         }
+        [HttpDelete("DeleteAdminCourse/{id}")]
+        public IActionResult DeleteAdminCourse(int id)
+        {
+            var deletedCourse = _adminCourseService.DeleteAdminCourse(id);
+            if (deletedCourse == null)
+            {
+                return NotFound($"Course with ID {id} not found.");
+            }
+            return Ok(deletedCourse);
+        }
+
     }
 }
