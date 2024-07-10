@@ -29,6 +29,7 @@ namespace StagecraftDAL.Services
 
                     using (var command = new SqlCommand("CheckUserExistence", connection))
                     {
+                    
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@Email", user.Email);
                         command.Parameters.AddWithValue("@Password", user.Password);
