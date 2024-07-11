@@ -1,44 +1,44 @@
 using Microsoft.AspNetCore.Mvc;
 using Common;
+using StagecraftDAL.Interface;
+using System.Net.Http;
 
 
 namespace StagecraftNet.Controllers
 {
-    [ApiController]
+
     [Route("api/[controller]")]
+    [ApiController]
     public class loginController : ControllerBase
     {
 
-        private readonly ILogger<HomePageController> _logger;
-        private readonly List<loginController> users = new List<loginController>();
+        private readonly ILogin _loginService;
 
-        public loginController(ILogger<HomePageController> logger )
+        public loginController(ILogin loginService)
         {
-            _logger = logger;
+            _loginService = loginService;
         }
 
-        [HttpPost]
-        public IActionResult SignUp([FromBody] Users userDetails)
+     
+
+        [HttpPost("CheckUserExistence")]
+        public ActionResult CheckUserExistence([FromBody] Users credentials)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+
+                var userExists = _loginService.CheckUserExistence(credentials);
+
+                return Ok(userExists);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-        //[HttpPost("login")]
-
-        //public IActionResult Login([FromBody] UserLoginRequest request)
-        //{
-        //    var user = users.FirstOrDefault(u => u.Email == request.Email && u.Password == request.Password);
-        //    if (user != null)
-        //    {
-        //        return Ok(new { message = "משתמש נמצא במערכת" });
-        //    }
-        //    else
-        //    {
-        //        return NotFound(new { message = "משתמש לא נמצא במערכת" });
-        //    }
-        //    throw new NotImplementedException();
-        //}
-
-
-
     }
 }
+
+
+

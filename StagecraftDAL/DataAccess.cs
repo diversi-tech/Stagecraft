@@ -19,7 +19,9 @@
         }
         public static T ExecuteStoredProcedure<T>(string storedProcedureName, params SqlParameter[] parameters)
         {
-            using (var connection = new SqlConnection(_connection))
+            using (
+
+                var connection = new SqlConnection(_connection))
             using (var command = new SqlCommand(storedProcedureName, connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -29,30 +31,40 @@
                 }
 
                 connection.Open();
+<<<<<<< HEAD
                 if (command.Parameters["@CourseId"] == null)
                 {
                     throw new InvalidOperationException("Parameter '@CourseId' was not supplied.");
                 }
                 object myresult = command.ExecuteScalar();
                 using (SqlDataReader dr = command.ExecuteReader())
+=======
+                using (SqlDataReader reader = command.ExecuteReader())
+>>>>>>> 894c683f82eea4366ceef025697b9eac74bae59e
                 {
                     if (typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(List<>))
                     {
                         // Handle IEnumerable<T>
                         Type itemType = typeof(T).GetGenericArguments()[0];
                         var method = typeof(DataMapper).GetMethod(nameof(DataMapper.MapToList)).MakeGenericMethod(itemType);
-                        var result = method.Invoke(null, new object[] { dr });
+                        var result = method.Invoke(null, new object[] { reader });
                         return (T)result;
                     }
-                   
-
-                    else if (myresult != null && myresult != DBNull.Value)
+                    else if (reader.Read())
                     {
-                        return (T)Convert.ChangeType(myresult, typeof(T));
+                        var result = Activator.CreateInstance<T>();
+                        foreach (var prop in typeof(T).GetProperties())
+                        {
+                            if (!reader.IsDBNull(reader.GetOrdinal(prop.Name)))
+                            {
+                                prop.SetValue(result, reader.GetValue(reader.GetOrdinal(prop.Name)));
+                            }
+                        }
+                        return result;
                     }
                     else
                     {
-                        throw new InvalidOperationException("Unsupported return type");
+                        throw new InvalidOperationException("No rows found.");
                     }
                 }
             }
