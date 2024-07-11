@@ -9,10 +9,10 @@ namespace StagecraftDAL.Services
 {
     public interface IAdminCourseService
     {
-        List<AdminCourse> GetAllAdminCourses();
+       /* List<AdminCourse> GetAllAdminCourses();
         List<AdminCourse> GetAdminCourseById(int id);
         List<AdminCourse> AddAdminCourses(AdminCourse course);
         List<AdminCourse> UpdateAdminCourses(int id, AdminCourse updatedCourse);
-        List<AdminCourse> DeleteAdminCourse(int id);
+        List<AdminCourse> DeleteAdminCourse(int id);*/
     }
 }

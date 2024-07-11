@@ -1,26 +1,73 @@
 ﻿using Common;
-using System;
-using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
+using StagecraftDAL.Interface;
+using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StagecraftDAL.Services
 {
-    public class CourseService
+    public class CourseService: ICourse
     {
-        public static List<Course>  GetAllCourses()
+        private readonly string _connectionString;
+
+        public CourseService(IConfiguration configuration)
+        {
+            _connectionString = configuration.GetConnectionString("DefaultConnection");
+        }
+        public static List<Classes> GetAllClass()
+        {
+            var t = DataAccess.ExecuteStoredProcedure<List<Classes>>("GetAllClass", null);
+            return t;
+        }
+        public  List<Course>  GetAllCourses()
+        {
+            var t = DataAccess.ExecuteStoredProcedure<List<Course>>("GetAllCourses", null);
+            return t;
+        }
+
+        public  List<Course> GetCourseById(int course_id)
+        {
+            SqlParameter param1 = new SqlParameter("@course_id", course_id);
+            var t = DataAccess.ExecuteStoredProcedure<List<Course>>("getCourseById", param1);
+            return t;
+        }
+
+       
+        public  List<Course> GetCourseDetails()
         {
             var t = DataAccess.ExecuteStoredProcedure<List<Course>>("getAllCourses", null);
             return t;
         }
 
-        public static List<Course> GetCoursById(int courses_id)
+        List<Course> ICourse.GetCoursesByUserId(int userId)
         {
-            SqlParameter param1 = new SqlParameter("@courses_id", courses_id);
-            var t = DataAccess.ExecuteStoredProcedure<List<Course>>("getCoursById", param1);
-            return t;
+            List<Course> courses = new List<Course>();
+            using (var connection = new SqlConnection(_connectionString))
+            using (var command = new SqlCommand("GetCoursesByUserId", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@userId", userId);
+
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        courses.Add(new Course
+                        {
+                            courses_id = (int)reader["courses_id"],
+                            courses_name = (string)reader["courses_name"],
+                            title = (string)reader["title"],
+                            description = (string)reader["description"],
+                            Price = (int)reader["Price"],
+                            numberOfViewers = (int)reader["numberOfViewers"]
+                        });
+                    }
+                }
+            }
+            return courses;
         }
+
+
     }
 }

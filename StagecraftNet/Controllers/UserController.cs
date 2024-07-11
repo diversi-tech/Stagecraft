@@ -1,7 +1,7 @@
 ﻿
 
 using Microsoft.AspNetCore.Mvc;
-using StagecraftDAL.Services;
+using StagecraftDAL.Interface;
 using StagecraftNet.Controllers;
 
 namespace StagecraftApi.Controllers
@@ -11,24 +11,25 @@ namespace StagecraftApi.Controllers
     public class UserController : ControllerBase
     {
 
-        private readonly IUserDAL _userDAL;
+        private readonly IUser _userDAL;
 
-        public UserController(IUserDAL UsersService)
+        public UserController(IUser UsersService)
         {
             _userDAL = UsersService;
         }
 
-        [HttpGet()]
-        [Route("GetUserProgress/{userId}/{courseId}")]
-        public  IActionResult GetUserProgress(int userId, int courseId)
+        [HttpGet("{userId}/{courseId}")]
+        public IActionResult GetUserProgress(int userId, int courseId)
         {
-            var progress =  _userDAL.GetUserProgress(userId, courseId);
-            if (progress == null)
+            try
+            {
+                var progress = _userDAL.GetUserProgress(userId, courseId);
+                return Ok(progress);
+            }
+            catch (Exception ex)
             {
                 return NotFound();
             }
-
-            return Ok(progress);
         }
     }
 }
