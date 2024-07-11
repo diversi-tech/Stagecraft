@@ -10,7 +10,7 @@ namespace StagecraftDAL.Interface
     public interface ILogin
 
     {
-            Task<bool> CheckUserExistence(Users user);
+            bool CheckUserExistence(Users user);
 
     }
 }

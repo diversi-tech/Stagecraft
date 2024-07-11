@@ -14,32 +14,16 @@ namespace StagecraftDAL.Services
 {
     public class LoginService : ILogin
     {
-            private readonly string _connectionString;
 
-            public LoginService(IConfiguration configuration)
-        {
-                _connectionString = configuration.GetConnectionString("DefaultConnection");;
-            }
-
-            public async Task<bool> CheckUserExistence(Users user)
+            public   bool CheckUserExistence(Users user)
             {
-                using (var connection = new SqlConnection(_connectionString))
-                {
-                    await connection.OpenAsync();
 
-                    using (var command = new SqlCommand("CheckUserExistence", connection))
-                    {
-                    
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@Email", user.Email);
-                        command.Parameters.AddWithValue("@Password", user.Password);
+            //  await connection.OpenAsync();
 
-                        var result = await command.ExecuteScalarAsync();
-
-                        return result != null && (string)result == "true";
+            SqlParameter param1 = new SqlParameter("@Email", user.Email);
+            SqlParameter param2 = new SqlParameter("@Password", user.Password);
+            var t = DataAccess.ExecuteStoredProcedure<bool>("CheckUserExistence", param1,param2);
+            return t;
                     }
                 }
             }
-        }
-
-    }
