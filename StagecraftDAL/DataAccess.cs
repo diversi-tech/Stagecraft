@@ -29,6 +29,10 @@
                 }
 
                 connection.Open();
+                if (command.Parameters["@CourseId"] == null)
+                {
+                    throw new InvalidOperationException("Parameter '@CourseId' was not supplied.");
+                }
                 object myresult = command.ExecuteScalar();
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
