@@ -31,16 +31,16 @@
                 }
 
                 connection.Open();
-<<<<<<< HEAD
+
                 if (command.Parameters["@CourseId"] == null)
                 {
                     throw new InvalidOperationException("Parameter '@CourseId' was not supplied.");
                 }
                 object myresult = command.ExecuteScalar();
                 using (SqlDataReader dr = command.ExecuteReader())
-=======
+
                 using (SqlDataReader reader = command.ExecuteReader())
->>>>>>> 894c683f82eea4366ceef025697b9eac74bae59e
+
                 {
                     if (typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(List<>))
                     {
