@@ -15,14 +15,14 @@ namespace StagecraftDAL.Services
     public class LoginService : ILogin
     {
 
-            public   bool CheckUserExistence(Users user)
+            public   int CheckUserExistence(Users user)
             {
 
             //  await connection.OpenAsync();
 
             SqlParameter param1 = new SqlParameter("@Email", user.Email);
             SqlParameter param2 = new SqlParameter("@Password", user.Password);
-            var t = DataAccess.ExecuteStoredProcedure<bool>("CheckUserExistence", param1,param2);
+            var t = DataAccess.ExecuteStoredProcedure<int>("CheckUserExistence", param1,param2);
             return t;
                     }
                 }
