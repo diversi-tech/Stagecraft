@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Common;
 
-namespace StagecraftDAL.Interface
+namespace StagecraftDAL.Services
 {
-    public interface ILogin
-
+    public interface IUserDAL
     {
-            bool CheckUserExistence(Users user);
-
+        int GetUserProgress(int userId, int courseId);
     }
 }

@@ -13,7 +13,7 @@ namespace StagecraftDAL.Interface
         List<Course> GetAllCourses();
         //warning!!!-
         List<Course> GetCourseDetails();
-        List<Course> GetCourseById(int courses_id);
+        Course GetCourseById(int courses_id);
         List<Course> GetCoursesByUserId(int userId);
     }
 }

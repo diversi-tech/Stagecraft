@@ -10,7 +10,7 @@ using StagecraftDAL.Interface;
 
 namespace StagecraftDAL.Services
 {
-    public class AdminService: IAdmin 
+   /* public class AdminCourseServices: IAdmin
     {
         private List<AdminCourse> _courses = new List<AdminCourse>();
 
@@ -66,36 +66,6 @@ namespace StagecraftDAL.Services
             var t = DataAccess.ExecuteStoredProcedure<List<AdminCourse>>("DeleteCourse_SP", param1);
             return t;
         }
-
-        public List<Users> GetAllUsers()
-        {
-            var t = DataAccess.ExecuteStoredProcedure<List<Users>>("GetAllUsers", null);
-            return t;
-        }
-
-        public bool AddCoursToUser(UserCourses userCourses)
-        {
-            SqlParameter param1 = new SqlParameter("@userId", userCourses.userId);
-            SqlParameter param2 = new SqlParameter("@coursId", userCourses.coursesId);
-            SqlParameter param3 = new SqlParameter("@isApproved", userCourses.isApproved);
-            var t = DataAccess.ExecuteStoredProcedure<bool>("AddCoursToUser", param1, param2, param3);
-            return t;
-        }
-
-        public bool DeletCoursToUser(UserCourses userCourses)
-        {
-            SqlParameter param1 = new SqlParameter("@userId", userCourses.userId);
-            SqlParameter param2 = new SqlParameter("@coursId", userCourses.coursesId);
-            var t = DataAccess.ExecuteStoredProcedure<bool>("DeletCoursToUser", param1, param2);
-            return t;
-        }
-
-        public List<Course> GetAllCoursOfUser(int userId)
-        {
-            SqlParameter param1 = new SqlParameter("@userId", userId);
-            var t = DataAccess.ExecuteStoredProcedure<List<Course>>("GetAllCoursOfUser", param1);
-            return t;
-
-        }
-    }
+*/
+  //  }
 }

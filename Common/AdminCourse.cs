@@ -9,7 +9,7 @@ namespace Common
 
     public class AdminCourse
     {
-        public int courses_id { get; set; }
+        public int? courses_id { get; set; }
         public string courses_name { get; set; }
         public string title { get; set; }
         public string description { get; set; }
