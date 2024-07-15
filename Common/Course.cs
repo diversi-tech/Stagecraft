@@ -46,7 +46,7 @@ namespace Common
         public int? price { get; set; }
         public string recommendations { get; set; }
         public int? Several_chapters { get; set; }
-        public TimeSpan? length { get; set; }
+        public string? length { get; set; }
         public int? numberOfViewers { get; set; }
         public DateTime? create_at { get; set; }
         public DateTime? update_at { get; set; }

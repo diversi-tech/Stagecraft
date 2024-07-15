@@ -73,7 +73,7 @@ namespace StagecraftDAL.Services
                             description = reader["description"] != DBNull.Value ? (string)reader["description"] : null,
                             price = reader["price"] != DBNull.Value ? (int)reader["price"] : 0,
                             Several_chapters = reader["Several_chapters"] != DBNull.Value ? (int)reader["Several_chapters"] : 0,
-                            length = reader["length"] != DBNull.Value ? (TimeSpan)reader["length"] : TimeSpan.Zero,
+                            length = reader["length"] != DBNull.Value ? (string)reader["length"] : null,
                             numberOfViewers = reader["numberOfViewers"] != DBNull.Value ? (int)reader["numberOfViewers"] : 0,
                             create_at = reader["create_at"] != DBNull.Value ? (DateTime)reader["create_at"] : DateTime.MinValue,
                             update_at = reader["update_at"] != DBNull.Value ? (DateTime)reader["update_at"] : DateTime.MinValue,
