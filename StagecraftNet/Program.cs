@@ -10,7 +10,7 @@ builder.Services.AddScoped<IFile, FileService>();
 builder.Services.AddScoped<ICourse, CourseService>();
 builder.Services.AddScoped<IVideoService, VideoService>();
 builder.Services.AddScoped<ITranscriptSegmentService, TranscriptSegmentService>();
-
+builder.Services.AddScoped<ISignup, SignupService>();
 builder.Services.AddScoped<ILogin, LoginService>();
 
 builder.Services.AddControllers();

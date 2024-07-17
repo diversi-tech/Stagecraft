@@ -38,7 +38,7 @@ namespace StagecraftDAL.Services
             SqlParameter param6 = new SqlParameter("@LastView", user.LastView);
             SqlParameter param7 = new SqlParameter("@Password", user.Password);
             SqlParameter param8 = new SqlParameter("@Status", user.Status);
-            SqlParameter param9 = new SqlParameter("@registrationDate", user.registrationDate);
+            SqlParameter param9 = new SqlParameter("@registrationDate", user.LastModifiedDate);
             SqlParameter param10 = new SqlParameter("@LastModifiedDate", user.LastModifiedDate);
             var parameters = new SqlParameter[] { param1, param2, param3, param4, param5, param6, param7, param8, param9, param10 };
              DataAccess.ExecuteStoredProcedure("SignUpProcedure", parameters);
