@@ -39,7 +39,8 @@ namespace StagecraftNet.Controllers
                 if (userExists != -1)
                 { 
                     var token = JwtTokenMiddleware.GenerateJwtToken(credentials.Code.ToString(), credentials.Email);
-                     return Ok(new { Token = token });
+                    //return Ok(new { Token = token });
+                    return Ok(userExists);
                 }
                 //לזכור לשנות שיחזיר את האוקי ולא את הטוקן!!!!!!!!!!!
                 else

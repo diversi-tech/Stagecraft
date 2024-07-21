@@ -99,7 +99,7 @@ namespace StagecraftApi.JwtManager
                 userId = int.Parse(jwtToken.Claims.FirstOrDefault(x => x.Type == "nameid")?.Value);
                 // שליפת הערכים
              
-                if (userId==111)
+                if (userId==111111)
                     userRole= Roles.Admin;
                 else if(userId!=-1)
                     userRole = Roles.User;
