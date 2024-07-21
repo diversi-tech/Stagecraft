@@ -10,12 +10,10 @@ builder.Services.AddScoped<IFile, FileService>();
 builder.Services.AddScoped<ICourse, CourseService>();
 builder.Services.AddScoped<IVideoService, VideoService>();
 builder.Services.AddScoped<ITranscriptSegmentService, TranscriptSegmentService>();
-<<<<<<< HEAD
 builder.Services.AddScoped<IForum, ForumService>();
 
-=======
+
 builder.Services.AddScoped<ISignup, SignupService>();
->>>>>>> 8baf16aac2ddc9482545172b8c1e1b6494bdfb81
 builder.Services.AddScoped<ILogin, LoginService>();
 
 builder.Services.AddControllers();

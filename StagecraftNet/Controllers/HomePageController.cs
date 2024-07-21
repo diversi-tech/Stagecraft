@@ -25,7 +25,8 @@ namespace StagecraftNet.Controllers
         }
 
         [HttpGet]
-        [StagecraftApi.JwtManager.Authorize(Roles.User)]
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
+
         [Route("GetAllClass")]
         public ActionResult GetAllClass()
         {
