@@ -9,14 +9,14 @@ namespace Common
 {
     public class Course
     {
-        public int courses_id { get; set; }
-        public string courses_name { get; set; }
-        public string title { get; set; }
-        public string description { get; set; }
-        
-        public int Price { get; set; }
-        //public List<Recommendation> Recommendations { get; set; }
-        public int numberOfViewers  { get; set; }
+        //public int courses_id { get; set; }
+        //public string courses_name { get; set; }
+        //public string title { get; set; }
+        //public string description { get; set; }
+
+        //public int Price { get; set; }
+        ////public List<Recommendation> Recommendations { get; set; }
+        //public int numberOfViewers  { get; set; }
         //public Timer Length { get; set;}
         //public DateTime create_at { get; set; }
         //public DateTime update_at { get; set; }
@@ -39,7 +39,18 @@ namespace Common
         //    }
         //    return null;
         //}
-
+        public int courses_id { get; set; }
+        public string courses_name { get; set; }
+        public string title { get; set; }
+        public string description { get; set; }
+        public int? price { get; set; }
+        public string recommendations { get; set; }
+        public int? Several_chapters { get; set; }
+        public string? length { get; set; }
+        public int? numberOfViewers { get; set; }
+        public DateTime? create_at { get; set; }
+        public DateTime? update_at { get; set; }
+        public bool? expanded { get; set; }
 
 
     }

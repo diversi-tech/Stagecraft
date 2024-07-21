@@ -15,18 +15,18 @@ namespace StagecraftApi.Controllers
         {
             _courseService = CourseService;
         }
-        [HttpGet]
-        [Route("GetCoursesByUserId/{userId}")]
-        public IActionResult GetCoursesByUserId(int userId)
-        {
+        //[HttpGet]
+        //[Route("GetCoursesByUserId/{userId}")]
+        //public IActionResult GetCoursesByUserId(int userId)
+        //{
 
-            var courses = _courseService.GetCoursesByUserId(userId);
-            if (courses == null || !courses.Any())
-            {
-                return NotFound("No courses found for the user.");
-            }
-            return Ok(courses);
-        }
+        //    var courses = _courseService.GetCoursesByUserId(userId);
+        //    if (courses == null || !courses.Any())
+        //    {
+        //        return NotFound("No courses found for the user.");
+        //    }
+        //    return Ok(courses);
+        //}
 
         [HttpGet]
 

@@ -10,7 +10,8 @@ namespace StagecraftDAL.Interface
     public interface ILogin
 
     {
-            bool CheckUserExistence(Users user);
+            int CheckUserExistence(Users user);
+             List<Users> GetUserById(int userId);
 
     }
 }

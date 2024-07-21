@@ -37,6 +37,21 @@ namespace StagecraftNet.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet()]
+        [Route("GetUserById/{userId}")]
+        public ActionResult GetUserById(int userId)
+        {
+            try
+            {
+                var t = _loginService.GetUserById(userId);
+                return Ok(t[0]);
+            }
+
+            catch (Exception ex)
+            {
+                return Ok(ex);
+            }
+        }
     }
 }
 
