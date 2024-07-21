@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Common;
 using StagecraftDAL.Services;
 using StagecraftDAL.Interface;
+using StagecraftApi.JwtManager;
 //using System.Web.Mvc;
 //using Microsoft.AspNetCore.Mvc;
 namespace StagecraftNet.Controllers
@@ -24,6 +25,7 @@ namespace StagecraftNet.Controllers
         }
 
         [HttpGet]
+        [StagecraftApi.JwtManager.Authorize(Roles.User)]
         [Route("GetAllClass")]
         public ActionResult GetAllClass()
         {
