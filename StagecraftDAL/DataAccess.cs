@@ -121,20 +121,23 @@ namespace StagecraftDAL
                 }
 
                 connection.Open();
-                object myresult = command.ExecuteScalar();
-                using (SqlDataReader dr = command.ExecuteReader())
+
+                if (typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(List<>))
                 {
-                    if (typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition() == typeof(List<>))
+                    // Handle IEnumerable<T>
+                    using (SqlDataReader dr = command.ExecuteReader())
                     {
-                        // Handle IEnumerable<T>
                         Type itemType = typeof(T).GetGenericArguments()[0];
                         var method = typeof(DataMapper).GetMethod(nameof(DataMapper.MapToList)).MakeGenericMethod(itemType);
                         var result = method.Invoke(null, new object[] { dr });
                         return (T)result;
                     }
-
-
-                    else if (myresult != null && myresult != DBNull.Value)
+                }
+                else
+                {
+                    // Handle single value
+                    object myresult = command.ExecuteScalar();
+                    if (myresult != null && myresult != DBNull.Value)
                     {
                         return (T)Convert.ChangeType(myresult, typeof(T));
                     }
@@ -145,6 +148,7 @@ namespace StagecraftDAL
                 }
             }
         }
+
         public static void ExecuteStoredProcedure(string storedProcedureName, params SqlParameter[] parameters)
         {
             using (var connection = new SqlConnection(_connection))

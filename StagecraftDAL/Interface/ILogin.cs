@@ -11,6 +11,7 @@ namespace StagecraftDAL.Interface
 
     {
             int CheckUserExistence(Users user);
+             List<Users> GetUserById(int userId);
 
     }
 }
