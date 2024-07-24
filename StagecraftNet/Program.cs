@@ -12,6 +12,8 @@ builder.Services.AddScoped<IVideoService, VideoService>();
 builder.Services.AddScoped<ITranscriptSegmentService, TranscriptSegmentService>();
 builder.Services.AddScoped<ISignup, SignupService>();
 builder.Services.AddScoped<ILogin, LoginService>();
+// הוסף את השירות FeedbackService
+builder.Services.AddScoped<IFeedback, FeedbackService>();
 
 builder.Services.AddControllers();
 
