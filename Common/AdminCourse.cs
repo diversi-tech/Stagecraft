@@ -19,7 +19,13 @@ namespace Common
         public int Several_chapters { get; set; }
         public string Length { get; set; }
         public int numberOfViewers { get; set; }
+        
 
+        public AdminCourse()
+        {
+            courses_name = string.Empty;  
+            // אתחול השדה לערך ברירת מחדל שאינו null
+        }
 
     }
 }
