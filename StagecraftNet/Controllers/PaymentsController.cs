@@ -9,35 +9,29 @@ namespace StagecraftApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PaymentsController : ControllerBase
+    public class PaymentController : ControllerBase
     {
         private readonly IPayment _paymentService;
 
-        public PaymentsController(IPayment paymentService)
+        public PaymentController(IPayment paymentService)
         {
             _paymentService = paymentService;
         }
 
         [HttpPost("processPayment")]
-        public async Task<IActionResult> ProcessPayment([FromBody] PaymentToken paymentToken)
+        public async Task<IActionResult> ProcessPayment([FromBody] PaymentDto paymentDto)
         {
-            var result = await _paymentService.ProcessPayment(paymentToken);
-            if (result.IsSuccess)
+            var result = await _paymentService.ProcessPayment(paymentDto);
+            if (!result.Success)
             {
-                return Ok(new { message = "Payment successful", transactionId = result.TransactionId });
+                return BadRequest(result.Message);
             }
-            return BadRequest(new { message = result.Message });
-        }
 
-        [HttpPost("generateToken")]
-        public async Task<IActionResult> GenerateToken([FromBody] PaymentDetails paymentDetails)
-        {
-            var token = await _paymentService.GenerateToken(paymentDetails);
-            if (token != null)
-            {
-                return Ok(new { token });
-            }
-            return BadRequest(new { message = "Token generation failed" });
+            var receiptPdf = await _paymentService.GenerateReceiptPdf(result.Receipt);
+            // שמירת הקבלה בענן
+            await _paymentService.SaveReceiptToCloud(result.Receipt, receiptPdf);
+
+            return File(receiptPdf, "application/pdf", "receipt.pdf");
         }
     }
-    }
+}
