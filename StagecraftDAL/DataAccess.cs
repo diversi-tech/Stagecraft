@@ -143,6 +143,7 @@ namespace StagecraftDAL
                     }
                     else
                     {
+                        //ריקי ביקשה לשנות להחזרת ערכי ברירת מחדל במקום NULL
                         throw new InvalidOperationException("Unsupported return type");
                     }
                 }
@@ -163,6 +164,11 @@ namespace StagecraftDAL
                 connection.Open();
                 command.ExecuteNonQuery();
             }
+        }
+
+        internal static IDisposable ExecuteStoredProcedureReader(string v, SqlParameter[] parameters)
+        {
+            throw new NotImplementedException();
         }
     }
 }

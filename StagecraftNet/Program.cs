@@ -1,6 +1,12 @@
+using StagecraftDAL;
 using StagecraftDAL.Interface;
+using Microsoft.Extensions.Configuration;
 using StagecraftDAL.Services;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection; // מוסיף את IServiceCollection ו- AddHttpClient
 
+using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -11,10 +17,24 @@ builder.Services.AddScoped<ICourse, CourseService>();
 builder.Services.AddScoped<IVideoService, VideoService>();
 builder.Services.AddScoped<ITranscriptSegmentService, TranscriptSegmentService>();
 builder.Services.AddScoped<IForum, ForumService>();
+<<<<<<< HEAD
 builder.Services.AddScoped<IProgressService, ProgressService>();
+=======
+builder.Services.AddScoped<IPayment, PaymentService>();
+builder.Services.AddScoped<IFileUpload, FileUploadService>(); // הוספת השירות להעלאת קבצים
+builder.Services.Configure<CloudStorageSettings>(builder.Configuration.GetSection("CloudStorage")); // שימוש במשתנה configuration מהמיקום הנכון
+builder.Services.AddControllers();
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IFileUpload, FileUploadService>();
+builder.Services.Configure<CloudStorageSettings>(builder.Configuration.GetSection("CloudStorage"));
+
+>>>>>>> a8a6969d6105e1c0a7591c4043f77193ffcbb7d1
 
 builder.Services.AddScoped<ISignup, SignupService>();
 builder.Services.AddScoped<ILogin, LoginService>();
+// הוסף את השירות FeedbackService
+builder.Services.AddScoped<IFeedback, FeedbackService>();
+builder.Services.AddHttpClient();
 
 builder.Services.AddControllers();
 
@@ -50,7 +70,14 @@ if (app.Environment.IsDevelopment())
 }
 app.UseRouting();
 app.UseCors("AllowAngularClient");
- 
+
+// הגדרת נתיבי HTTP
+app.UseRouting();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+
 
 
 app.UseHttpsRedirection();
