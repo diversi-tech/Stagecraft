@@ -19,8 +19,19 @@ builder.Services.AddScoped<ICourse, CourseService>();
 builder.Services.AddScoped<IVideoService, VideoService>();
 builder.Services.AddScoped<ITranscriptSegmentService, TranscriptSegmentService>();
 builder.Services.AddScoped<IForum, ForumService>();
+
+builder.Services.AddScoped<IProgressService, ProgressService>();
+
 builder.Services.AddScoped<IPayment, PaymentService>();
 builder.Services.AddScoped<IFileUpload, FileUploadService>(); // הוספת השירות להעלאת קבצים
+builder.Services.Configure<CloudStorageSettings>(builder.Configuration.GetSection("CloudStorage")); // שימוש במשתנה configuration מהמיקום הנכון
+builder.Services.AddControllers();
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IFileUpload, FileUploadService>();
+builder.Services.Configure<CloudStorageSettings>(builder.Configuration.GetSection("CloudStorage"));
+
+
+
 builder.Services.AddScoped<ISignup, SignupService>();
 builder.Services.AddScoped<ILogin, LoginService>();
 builder.Services.AddScoped<IFeedback, FeedbackService>();
