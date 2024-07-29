@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http.Features; // הוספת זה עבור FormOptions
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Builder;
+
 using Microsoft.Extensions.Logging; // הוספת זה עבור לוגים
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,12 +25,6 @@ builder.Services.AddScoped<IProgressService, ProgressService>();
 
 builder.Services.AddScoped<IPayment, PaymentService>();
 builder.Services.AddScoped<IFileUpload, FileUploadService>(); // הוספת השירות להעלאת קבצים
-builder.Services.Configure<CloudStorageSettings>(builder.Configuration.GetSection("CloudStorage")); // שימוש במשתנה configuration מהמיקום הנכון
-builder.Services.AddControllers();
-builder.Services.AddHttpClient();
-builder.Services.AddScoped<IFileUpload, FileUploadService>();
-builder.Services.Configure<CloudStorageSettings>(builder.Configuration.GetSection("CloudStorage"));
-
 
 
 builder.Services.AddScoped<ISignup, SignupService>();
