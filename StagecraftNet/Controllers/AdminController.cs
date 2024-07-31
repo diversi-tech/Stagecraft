@@ -21,7 +21,7 @@ namespace StagecraftApi.Controllers
             _admin = adminCourseService;
         }
 
-        //[StagecraftApi.JwtManager.Authorize(Roles.Admin)]
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
         // Get all courses
         [HttpGet("GetAllAdminCourses")]
@@ -30,7 +30,7 @@ namespace StagecraftApi.Controllers
             var courses = _admin.GetAllAdminCourses();
             return Ok(courses);
         }
-        //[StagecraftApi.JwtManager.Authorize(Roles.Admin)]
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
         // Get a course by ID
         [HttpGet("GetAdminCourseById/{id}")]
@@ -43,7 +43,7 @@ namespace StagecraftApi.Controllers
             }
             return Ok(course);
         }
-        //[StagecraftApi.JwtManager.Authorize(Roles.Admin)]
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
         // Add a new course
         [HttpPost("AddAdminCourses")]
@@ -68,7 +68,7 @@ namespace StagecraftApi.Controllers
 
             return CreatedAtAction(nameof(AddAdminCourses), new { id = course.courses_id }, course);
         }
-        // [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
         [HttpPut("UpdateAdminCourses/{id}")]
         public async Task<IActionResult> UpdateAdminCourses(int id, [FromForm] AdminCourse course)
@@ -128,6 +128,7 @@ namespace StagecraftApi.Controllers
             return NoContent();
         }
 
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
         [HttpDelete("DeleteAdminCourse/{id}")]
         public async Task<IActionResult> DeleteAdminCourse(int id)
@@ -165,6 +166,9 @@ namespace StagecraftApi.Controllers
                 return StatusCode(500, new { message = "An error occurred while deleting the course.", error = ex.Message });
             }
         }
+
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
+
         [HttpGet()]
         [Route("GetAllUsers")]
         public ActionResult GetAllUsers()
@@ -199,6 +203,7 @@ namespace StagecraftApi.Controllers
             }
         }
         //[StagecraftApi.JwtManager.Authorize(Roles.Admin)]
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
         [HttpPost("AddCoursToUser")]
         public ActionResult AddCoursToUser([FromBody] UserCourses userCourses)
@@ -224,6 +229,7 @@ namespace StagecraftApi.Controllers
         }
 
         // [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
         [HttpDelete("DeletCoursToUser")]
         public ActionResult DeletCoursToUser([FromBody] UserCourses userCourses)

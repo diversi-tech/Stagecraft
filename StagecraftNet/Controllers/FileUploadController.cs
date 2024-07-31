@@ -13,6 +13,7 @@ using StagecraftDAL;
 using System.Data.SqlClient;
 using StagecraftDAL.Services;
 using StagecraftDAL.Interface;
+using StagecraftApi.JwtManager;
 
 namespace StagecraftApi.Controllers
 {
@@ -26,6 +27,7 @@ namespace StagecraftApi.Controllers
         {
             _fileUploadService = fileUploadService;
         }
+        [StagecraftApi.JwtManager.Authorize(Roles.User)]
 
         [HttpPost("upload")]
         public async Task<IActionResult> Upload(IFormFile file)
