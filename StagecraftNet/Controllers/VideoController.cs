@@ -1,5 +1,6 @@
 ﻿using Common;
 using Microsoft.AspNetCore.Mvc;
+using StagecraftApi.JwtManager;
 using StagecraftDAL;
 using StagecraftDAL.Interface;
 
@@ -15,6 +16,7 @@ namespace StagecraftApi.Controllers
         {
             _videoService = videoService;
         }
+        [StagecraftApi.JwtManager.Authorize(Roles.User)]
 
         [HttpGet("{id}")]
         public IActionResult GetVideo(int id)

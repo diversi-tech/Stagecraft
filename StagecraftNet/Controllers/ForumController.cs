@@ -22,7 +22,7 @@ namespace StagecraftApi.Controllers
             var question = _forum.GetAllQuestions();
             return Ok(question);
         }
-        //[StagecraftApi.JwtManager.Authorize(Roles.User)]
+        [StagecraftApi.JwtManager.Authorize(Roles.User)]
 
         [HttpPost("AddQuestion")]
         public ActionResult<string> AddQuestion([FromBody] Question question)
@@ -36,7 +36,7 @@ namespace StagecraftApi.Controllers
             //return CreatedAtAction(nameof(AddQuestion), new { id = question.QuestionId }, question);
 
         }
-        //[StagecraftApi.JwtManager.Authorize(Roles.Admin)]
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
         [HttpPut("UpdateQuestion/{id}")]
         public IActionResult UpdateQuestion(int id, [FromBody] Question question)
@@ -52,7 +52,7 @@ namespace StagecraftApi.Controllers
             }
             return NoContent();
         }
-        //[StagecraftApi.JwtManager.Authorize(Roles.Admin)]
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
         [HttpDelete("DeleteQuestion/{id}")]
         public IActionResult DeleteQuestion(int id)
@@ -83,7 +83,7 @@ namespace StagecraftApi.Controllers
             return CreatedAtAction(nameof(AddQuestion), new { id = answer.QuestionId }, answer);
 
         }
-        // [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
         [HttpPut("UpdateAnswer/{id}")]
         public IActionResult UpdateAnswer(int id, [FromBody] Answer answer)
@@ -99,7 +99,7 @@ namespace StagecraftApi.Controllers
             }
             return NoContent();
         }
-        //[StagecraftApi.JwtManager.Authorize(Roles.Admin)]
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
         [HttpDelete("DeleteAnswer/{id}")]
         public IActionResult DeleteAnswer(int id)

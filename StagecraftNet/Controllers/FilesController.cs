@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StagecraftApi.JwtManager;
 using StagecraftDAL.Interface;
 using StagecraftNet.Controllers;
 
@@ -19,6 +20,7 @@ namespace StagecraftApi.Controllers
 
         }
 
+        [StagecraftApi.JwtManager.Authorize(Roles.User)]
 
         [HttpGet("{VideoId}")]
         public IActionResult DownloadTaskFiles(int VideoId)
