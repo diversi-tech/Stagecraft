@@ -26,7 +26,7 @@ namespace StagecraftDAL.Services
         public static bool CheckIfEmailExist(string email)
         {
             SqlParameter param1 = new SqlParameter("@EmailToCheck", email);
-            var t = DataAccess.ExecuteStoredProcedure<bool>("CheckEmail", param1);
+            var t = SQLDataAccess.ExecuteStoredProcedure<bool>("CheckEmail", param1);
             return t;
         }
         public static void SignUp(Users user)
@@ -41,12 +41,12 @@ namespace StagecraftDAL.Services
             SqlParameter param9 = new SqlParameter("@registrationDate", user.LastModifiedDate);
             SqlParameter param10 = new SqlParameter("@LastModifiedDate", user.LastModifiedDate);
             var parameters = new SqlParameter[] { param1, param2, param3, param4, param5, param6, param7, param8, param9, param10 };
-             DataAccess.ExecuteStoredProcedure("SignUpProcedure", parameters);
+             SQLDataAccess.ExecuteStoredProcedure("SignUpProcedure", parameters);
         }
         public static void SignUpForACourse(int courseId)
         {
             SqlParameter param1 = new SqlParameter("@courseId", courseId);
-             DataAccess.ExecuteStoredProcedure("SignUpForACourse", param1);
+             SQLDataAccess.ExecuteStoredProcedure("SignUpForACourse", param1);
            
         }
 
@@ -56,7 +56,7 @@ namespace StagecraftDAL.Services
         {
             SqlParameter param1 = new SqlParameter("@UserId", UserId);
             SqlParameter param2 = new SqlParameter("@CourseId", CourseId);
-            var t = DataAccess.ExecuteStoredProcedure<int>("GetUserProgress", param1, param2);
+            var t = SQLDataAccess.ExecuteStoredProcedure<int>("GetUserProgress", param1, param2);
             return t;
         }
 

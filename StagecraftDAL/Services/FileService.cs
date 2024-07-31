@@ -14,7 +14,7 @@ namespace StagecraftDAL.Services
         public string DownloadTaskFiles(int VideoId)
         {
             SqlParameter param1 = new SqlParameter("@VideoId", VideoId);
-            var t = DataAccess.ExecuteStoredProcedure<string>("DownloadTaskFiles", param1);
+            var t = SQLDataAccess.ExecuteStoredProcedure<string>("DownloadTaskFiles", param1);
 
             return Path.Combine(FileAdminPath, t);
         }
@@ -23,7 +23,7 @@ namespace StagecraftDAL.Services
         //public string DownloadTaskFiles(int VideoId)
         //{
         //    SqlParameter param1 = new SqlParameter("@VideoId", VideoId);
-        //    var t = DataAccess.ExecuteStoredProcedure<string>("DownloadTaskFiles", param1);
+        //    var t = SQLDataAccess.ExecuteStoredProcedure<string>("DownloadTaskFiles", param1);
 
         //    return Path.Combine(FileUserPath, t);
         //}

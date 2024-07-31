@@ -16,14 +16,14 @@ namespace StagecraftDAL.Services
 
         public List<AdminCourse> GetAllAdminCourses()
         {
-            var t = DataAccess.ExecuteStoredProcedure<List<AdminCourse>>("GetAllCourses", null);
+            var t = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("GetAllCourses", null);
             return t;
         }
 
         public List<AdminCourse> GetAdminCourseById(int id)
         {
             SqlParameter param1 = new SqlParameter("@CourseId", id);
-            var t = DataAccess.ExecuteStoredProcedure<List<AdminCourse>>("GetCourseById", param1);
+            var t = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("GetCourseById", param1);
             return t;
         }
 
@@ -40,7 +40,7 @@ namespace StagecraftDAL.Services
             SqlParameter param8 = new SqlParameter("@pLength", course.Length);
             SqlParameter param9 = new SqlParameter("@pnumberOfViewers", course.numberOfViewers);
 
-            var t = DataAccess.ExecuteStoredProcedure<List<AdminCourse>>("AddCourse_SP", param1, param2, param3, param4, param5, param6, param7, param8, param9,param10);
+            var t = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("AddCourse_SP", param1, param2, param3, param4, param5, param6, param7, param8, param9,param10);
             Console.WriteLine(t);
             return t;
         }
@@ -57,13 +57,13 @@ namespace StagecraftDAL.Services
             SqlParameter param8 = new SqlParameter("@pLength", updatedCourse.Length);
             SqlParameter param9 = new SqlParameter("@pnumberOfViewers", updatedCourse.numberOfViewers);
            
-            var t = DataAccess.ExecuteStoredProcedure<List<AdminCourse>>("UpdateCourse_SP", param1, param2, param3, param4, param5, param6, param7, param8, param9);
+            var t = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("UpdateCourse_SP", param1, param2, param3, param4, param5, param6, param7, param8, param9);
             return t;
         }
         public List<AdminCourse> DeleteAdminCourse(int id)
         {
             SqlParameter param1 = new SqlParameter("@pCourseID", id);
-            var t = DataAccess.ExecuteStoredProcedure<List<AdminCourse>>("DeleteCourse_SP", param1);
+            var t = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("DeleteCourse_SP", param1);
             return t;
         }
 */

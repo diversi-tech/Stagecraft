@@ -18,7 +18,7 @@ namespace StagecraftDAL.Services
 
             try
             {
-                var result = DataAccess.ExecuteStoredProcedure<int>("UpdateUserProgress", param1, param2, param3);
+                var result = SQLDataAccess.ExecuteStoredProcedure<int>("UpdateUserProgress", param1, param2, param3);
                 return result;
             }
             catch (SqlException ex)

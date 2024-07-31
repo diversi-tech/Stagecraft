@@ -31,7 +31,7 @@ namespace StagecraftDAL.Services
                 new SqlParameter("@CourseId", CourseId)
             };
 
-            return DataAccess.ExecuteStoredProcedure<List<Feedback>>("GetFeedbackByUserCourseClass", parameters);
+            return SQLDataAccess.ExecuteStoredProcedure<List<Feedback>>("GetFeedbackByUserCourseClass", parameters);
         }
     }
 }

@@ -57,7 +57,7 @@ namespace StagecraftDAL.Services
             new SqlParameter("@Date", receipt.Date)
             };
 
-            DataAccess.ExecuteStoredProcedure("SaveReceipt", parameters);
+            SQLDataAccess.ExecuteStoredProcedure("SaveReceipt", parameters);
 
             return (true, "Payment processed successfully", receipt);
         }

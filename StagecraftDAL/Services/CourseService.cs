@@ -16,27 +16,28 @@ namespace StagecraftDAL.Services
         }
         public static List<Classes> GetAllClass()
         {
-            var t = DataAccess.ExecuteStoredProcedure<List<Classes>>("GetAllClass", null);
+            var t = PostgreSQLDataAccess.ExecuteFunction<Classes>("get_all_classes", null);
+            //var t = SQLDataAccess.ExecuteStoredProcedure<List<Classes>>("GetAllClass", null);
             return t;
         }
         public  List<Course>  GetAllCourses()
         {
-            var t = DataAccess.ExecuteStoredProcedure<List<Course>>("GetAllCourses", null);
+            var t = SQLDataAccess.ExecuteStoredProcedure<List<Course>>("GetAllCourses", null);
             return t;
         }
 
         //public  List<Course> GetCourseById(int course_id)
         //{
         //    SqlParameter param1 = new SqlParameter("@course_id", course_id);
-        //    var t = DataAccess.ExecuteStoredProcedure<List<Course>>("getCourseById", param1);
+        //    var t = SQLDataAccess.ExecuteStoredProcedure<List<Course>>("getCourseById", param1);
         //    return t;
         //}
 
         public Course GetCourseById(int course_id)
         {
             SqlParameter param1 = new SqlParameter("@CourseId", course_id);
-
-            var t = DataAccess.ExecuteStoredProcedure<List<Course>>("GetCourseById", param1).FirstOrDefault();
+            N
+            var t = SQLDataAccess.ExecuteStoredProcedure<List<Course>>("GetCourseById", param1).FirstOrDefault();
 
 
             return t;
@@ -47,7 +48,7 @@ namespace StagecraftDAL.Services
 
         public  List<Course> GetCourseDetails()
         {
-            var t = DataAccess.ExecuteStoredProcedure<List<Course>>("getAllCourses", null);
+            var t = SQLDataAccess.ExecuteStoredProcedure<List<Course>>("getAllCourses", null);
             return t;
         }
 
