@@ -32,6 +32,6 @@
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\StagecraftBL\StagecraftBL.csproj" />
     <ProjectReference Include="..\StagecraftDAL\StagecraftDAL.csproj" />
-  </ItemGroup>
+  </ItemGroup>  
 
 </Project>

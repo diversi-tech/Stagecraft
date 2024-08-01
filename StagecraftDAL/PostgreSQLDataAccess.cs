@@ -16,7 +16,7 @@ namespace StagecraftDAL
             _config = Configuration.ReadConfigValue();
             _connection = _config["ConnectionStrings:PostgreSqlConnection"];
         }
-        public static List<T> ExecuteFunction<T>(string functionName, List<NpgsqlParameter> parameters = null) where T : new()
+        public static List<T> ExecuteFunction<T>(string functionName, params NpgsqlParameter[] parameters) where T : new()
         {
             List<T> result = new List<T>();
 
@@ -24,7 +24,6 @@ namespace StagecraftDAL
             {
                 connection.Open();
 
-                // הכנה לפקודה עם שימוש בפרמטרים
                 var parameterPlaceholders = parameters != null
                     ? string.Join(", ", parameters.Select((p, i) => $"@p{i}"))
                     : string.Empty;
@@ -33,7 +32,7 @@ namespace StagecraftDAL
                 {
                     if (parameters != null)
                     {
-                        for (int i = 0; i < parameters.Count; i++)
+                        for (int i = 0; i < parameters.Length; i++)
                         {
                             command.Parameters.AddWithValue($"@p{i}", parameters[i].Value);
                         }

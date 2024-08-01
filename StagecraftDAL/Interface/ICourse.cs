@@ -14,6 +14,6 @@ namespace StagecraftDAL.Interface
         //warning!!!-
         List<Course> GetCourseDetails();
         Course GetCourseById(int courses_id);
-        List<Course> GetCoursesByUserId(int userId);
+       // List<Course> GetCoursesByUserId(int userId);
     }
 }
