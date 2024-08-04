@@ -72,17 +72,65 @@ namespace StagecraftApi.Controllers
             return Ok(question);
         }
 
+        //[HttpPost("AddAnswer")]
+        //public ActionResult<Answer> AddAnswer([FromBody] Answer answer)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    var newAnswer = _forum.AddAnswer(answer);
+        //    return CreatedAtAction(nameof(AddQuestion), new { id = answer.QuestionId }, answer);
+
+        //}
+        [HttpGet("GetAnswersByQuestionId/{questionId}")]
+        public ActionResult<IEnumerable<Answer>> GetAnswersByQuestionId(int questionId)
+        {
+            var answers = _forum.GetAnswersByQuestionId(questionId);
+            return Ok(answers);
+        }
+
+        //[HttpPost("AddAnswer/{questionId}")]
+        //public ActionResult<Answer> AddAnswer(int questionId, [FromBody] Answer answer)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    answer.QuestionId = questionId;
+        //    var newAnswer = _forum.AddAnswer(answer);
+        //    return CreatedAtAction(nameof(AddAnswer), new { id = newAnswer.id }, newAnswer);
+        //}
+        //[HttpPost("AddAnswer/{questionId}")]
+        //public ActionResult<Answer> AddAnswer(int questionId, [FromBody] Answer answer)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    answer.QuestionId = questionId;
+        //    var newAnswer = _forum.AddAnswer(answer);
+        //    return CreatedAtAction(nameof(AddAnswer), new { id = newAnswer.AnswerId }, newAnswer);
+        //}
+
+
         [HttpPost("AddAnswer")]
-        public ActionResult<Answer> AddAnswer([FromBody] Answer answer)
+        public ActionResult<Answer> AddAnswer(int questionId,[FromBody] Answer answer)
+
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            answer.QuestionId = questionId;
             var newAnswer = _forum.AddAnswer(answer);
-            return CreatedAtAction(nameof(AddQuestion), new { id = answer.QuestionId }, answer);
+            //return CreatedAtAction(nameof(AddAnswer), new { id = newAnswer.AnswerId }, newAnswer);
+            return Ok(newAnswer);
+            //return CreatedAtAction(nameof(AddQuestion), new { id = question.QuestionId }, question);
 
         }
+
+
         [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
         [HttpPut("UpdateAnswer/{id}")]
@@ -99,12 +147,17 @@ namespace StagecraftApi.Controllers
             }
             return NoContent();
         }
+
+        [HttpPost("DeleteAnswer/{id}")]
+    
+
         [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
         [HttpDelete("DeleteAnswer/{id}")]
-        public IActionResult DeleteAnswer(int id)
+        public IActionResult DeleteAnswer(int id,Answer answer)
+
         {
-            var deletedAnswer = _forum.DeleteAnswer(id);
+            var deletedAnswer = _forum.DeleteAnswer(id,answer);
             if (deletedAnswer == null)
             {
                 return NotFound($"Question with ID {id} not found.");
