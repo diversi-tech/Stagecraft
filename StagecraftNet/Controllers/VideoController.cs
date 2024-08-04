@@ -16,8 +16,8 @@ namespace StagecraftApi.Controllers
         {
             _videoService = videoService;
         }
-        [StagecraftApi.JwtManager.Authorize(Roles.User)]
 
+        [Authorize(Roles.User)]
         [HttpGet("{id}")]
         public IActionResult GetVideo(int id)
         {

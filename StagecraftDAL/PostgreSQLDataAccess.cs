@@ -18,6 +18,10 @@ namespace StagecraftDAL
         }
         public static List<T> ExecuteFunction<T>(string functionName, params NpgsqlParameter[] parameters) where T : new()
         {
+            try
+            {
+
+            
             List<T> result = new List<T>();
 
             using (var connection = new NpgsqlConnection(_connection))
@@ -52,8 +56,14 @@ namespace StagecraftDAL
             }
 
             return result;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
-        public static T ExecuteSimpleTypeFunction<T>(string functionName, List<NpgsqlParameter> parameters = null)
+        public static T ExecuteSimpleTypeFunction<T>(string functionName, params NpgsqlParameter[] parameters)
         {
             using (var connection = new NpgsqlConnection(_connection))
             {
@@ -68,7 +78,7 @@ namespace StagecraftDAL
                 {
                     if (parameters != null)
                     {
-                        for (int i = 0; i < parameters.Count; i++)
+                        for (int i = 0; i < parameters.Length; i++)
                         {
                             command.Parameters.AddWithValue($"@p{i}", parameters[i].Value);
                         }

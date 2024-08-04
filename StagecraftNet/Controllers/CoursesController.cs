@@ -33,7 +33,7 @@ namespace StagecraftApi.Controllers
         [Route("GetCourseDetails")]
         public IActionResult GetCourseDetails()
         {
-            var courseDetails = _courseService.GetCourseDetails();
+            var courseDetails = _courseService.GetAllCourses();
             if (courseDetails == null)
             {
                 return NotFound("Course not found.");

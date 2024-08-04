@@ -41,8 +41,6 @@ namespace StagecraftDAL.Services
                     new NpgsqlParameter("ptitle", course.title),
                     new NpgsqlParameter("pcourse_name", course.courses_name),
                     new NpgsqlParameter("pdescription", course.description),
-                    new NpgsqlParameter("pcreate_at", course.create_at),
-                    new NpgsqlParameter("pupdate_at", course.update_at),
                     new NpgsqlParameter("pprice", course.price),
                     new NpgsqlParameter("pseveral_chapters", course.Several_chapters),
                     new NpgsqlParameter("plength", course.Length),
@@ -64,21 +62,35 @@ namespace StagecraftDAL.Services
         {
             try
             {
-                SqlParameter param1 = new SqlParameter("@pCourseID", id);
-                SqlParameter param2 = new SqlParameter("@pCourseName", updatedCourse.courses_name);
-                SqlParameter param3 = new SqlParameter("@pTitle", updatedCourse.title);
-                SqlParameter param4 = new SqlParameter("@pDescription", updatedCourse.description);
-                SqlParameter param5 = new SqlParameter("@pUpdate_at", updatedCourse.update_at);
-                SqlParameter param6 = new SqlParameter("@pPrice", updatedCourse.price);
-                SqlParameter param7 = new SqlParameter("@pSeveral_chapters", updatedCourse.Several_chapters);
-                SqlParameter param8 = new SqlParameter("@pLength", updatedCourse.Length);
-                SqlParameter param9 = new SqlParameter("@pNumberOfViewers", updatedCourse.numberOfViewers);
-                SqlParameter param11 = new SqlParameter("@pVideoURL", updatedCourse.videoURL);
-                SqlParameter param12 = new SqlParameter("@pTaskFilesURL", updatedCourse.taskFilesURL);
+                NpgsqlParameter param1 = new NpgsqlParameter("pcourse_id", id);
+                NpgsqlParameter param3 = new NpgsqlParameter("ptitle", updatedCourse.title);
+                NpgsqlParameter param2 = new NpgsqlParameter("pcourse_name", updatedCourse.courses_name);
+                NpgsqlParameter param4 = new NpgsqlParameter("pdescription", updatedCourse.description);
+                NpgsqlParameter param6 = new NpgsqlParameter("pprice", updatedCourse.price);
+                NpgsqlParameter param7 = new NpgsqlParameter("pseveral_chapters", updatedCourse.Several_chapters);
+                NpgsqlParameter param8 = new NpgsqlParameter("plength", updatedCourse.Length);
+                NpgsqlParameter param9 = new NpgsqlParameter("pnumber_of_viewers", updatedCourse.numberOfViewers);
+                NpgsqlParameter param11 = new NpgsqlParameter("pvideo_url", updatedCourse.videoURL);
+                NpgsqlParameter param12 = new NpgsqlParameter("ptask_files_url", updatedCourse.taskFilesURL);
 
-                var courses = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("UpdateCourse_SP", param1, param2, param3, param4, param5, param6, param7, param8, param9, param11, param12);
+                var courses = PostgreSQLDataAccess.ExecuteFunction<AdminCourse>("update_course_sp", param1, param2, param3, param4, param6, param7, param8, param9, param11, param12);
 
                 return courses;
+                //SqlParameter param1 = new SqlParameter("@pCourseID", id);
+                //SqlParameter param2 = new SqlParameter("@pCourseName", updatedCourse.courses_name);
+                //SqlParameter param3 = new SqlParameter("@pTitle", updatedCourse.title);
+                //SqlParameter param4 = new SqlParameter("@pDescription", updatedCourse.description);
+                //SqlParameter param5 = new SqlParameter("@pUpdate_at", updatedCourse.update_at);
+                //SqlParameter param6 = new SqlParameter("@pPrice", updatedCourse.price);
+                //SqlParameter param7 = new SqlParameter("@pSeveral_chapters", updatedCourse.Several_chapters);
+                //SqlParameter param8 = new SqlParameter("@pLength", updatedCourse.Length);
+                //SqlParameter param9 = new SqlParameter("@pNumberOfViewers", updatedCourse.numberOfViewers);
+                //SqlParameter param11 = new SqlParameter("@pVideoURL", updatedCourse.videoURL);
+                //SqlParameter param12 = new SqlParameter("@pTaskFilesURL", updatedCourse.taskFilesURL);
+
+                //var courses = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("UpdateCourse_SP", param1, param2, param3, param4, param5, param6, param7, param8, param9, param11, param12);
+
+                //return courses;
             }
             catch (Exception ex)
             {
@@ -89,9 +101,12 @@ namespace StagecraftDAL.Services
 
         public List<AdminCourse> DeleteAdminCourse(int id)
         {
-            SqlParameter param1 = new SqlParameter("@pCourseID", id);
-            var t = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("DeleteCourse_SP", param1);
+            NpgsqlParameter param1 = new NpgsqlParameter("pcourse_id", id);
+            var t = PostgreSQLDataAccess.ExecuteFunction<AdminCourse>("delete_course_sp", param1);
             return t;
+            //SqlParameter param1 = new SqlParameter("@pCourseID", id);
+            //var t = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("DeleteCourse_SP", param1);
+            //return t;
         }
         public List<Users> GetAllUsers()
         {

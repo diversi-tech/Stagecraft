@@ -21,18 +21,15 @@ namespace StagecraftApi.Controllers
             _admin = adminCourseService;
         }
 
-        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
-
-        // Get all courses
+        [Authorize(Roles.Admin)]
         [HttpGet("GetAllAdminCourses")]
         public ActionResult<IEnumerable<AdminCourse>> GetAllAdminCourses()
         {
             var courses = _admin.GetAllAdminCourses();
             return Ok(courses);
         }
-        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
-        // Get a course by ID
+        [Authorize(Roles.Admin)]
         [HttpGet("GetAdminCourseById/{id}")]
         public ActionResult<AdminCourse> GetAdminCourseById(int id)
         {
@@ -43,9 +40,8 @@ namespace StagecraftApi.Controllers
             }
             return Ok(course);
         }
-        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
-        // Add a new course
+        [Authorize(Roles.Admin)]
         [HttpPost("AddAdminCourses")]
         public async Task<ActionResult<AdminCourse>> AddAdminCourses([FromForm] AdminCourse course)
         {
@@ -68,8 +64,8 @@ namespace StagecraftApi.Controllers
 
             return CreatedAtAction(nameof(AddAdminCourses), new { id = course.courses_id }, course);
         }
-        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
+        [Authorize(Roles.Admin)]
         [HttpPut("UpdateAdminCourses/{id}")]
         public async Task<IActionResult> UpdateAdminCourses(int id, [FromForm] AdminCourse course)
         {
@@ -128,8 +124,7 @@ namespace StagecraftApi.Controllers
             return NoContent();
         }
 
-        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
-
+        [Authorize(Roles.Admin)]
         [HttpDelete("DeleteAdminCourse/{id}")]
         public async Task<IActionResult> DeleteAdminCourse(int id)
         {
@@ -167,10 +162,8 @@ namespace StagecraftApi.Controllers
             }
         }
 
-        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
-
-        [HttpGet()]
-        [Route("GetAllUsers")]
+        [Authorize(Roles.Admin)]
+        [HttpGet("GetAllUsers")]
         public ActionResult GetAllUsers()
         {
             try
@@ -185,10 +178,7 @@ namespace StagecraftApi.Controllers
             }
         }
 
-        //[StagecraftApi.JwtManager.Authorize(Roles.Admin)]
-
-        [HttpGet()]
-        [Route("GetAllCoursOfUser/{userId}")]
+        [HttpGet("GetAllCoursOfUser/{userId}")]
         public ActionResult GetAllCoursOfUser(int userId)
         {
             try
@@ -202,9 +192,8 @@ namespace StagecraftApi.Controllers
                 return Ok(ex);
             }
         }
-        //[StagecraftApi.JwtManager.Authorize(Roles.Admin)]
-        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
+        [Authorize(Roles.Admin)]
         [HttpPost("AddCoursToUser")]
         public ActionResult AddCoursToUser([FromBody] UserCourses userCourses)
         {
@@ -228,9 +217,7 @@ namespace StagecraftApi.Controllers
 
         }
 
-        // [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
-        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
-
+        [Authorize(Roles.Admin)]
         [HttpDelete("DeletCoursToUser")]
         public ActionResult DeletCoursToUser([FromBody] UserCourses userCourses)
         {
