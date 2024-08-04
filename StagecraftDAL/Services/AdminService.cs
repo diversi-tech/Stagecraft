@@ -5,25 +5,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common;
+using Npgsql;
 using StagecraftDAL.Interface;
 
 
 namespace StagecraftDAL.Services
 {
-    public class AdminService: IAdmin 
+    public class AdminService : IAdmin
     {
         private List<AdminCourse> _courses = new List<AdminCourse>();
 
         public List<AdminCourse> GetAllAdminCourses()
         {
-            var t = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("GetAllCourses", null);
+            //var t = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("GetAllCourses", null);
+            var t = PostgreSQLDataAccess.ExecuteFunction<AdminCourse>("get_all_courses");
+
             return t;
         }
 
         public AdminCourse GetAdminCourseById(int id)
         {
-            SqlParameter param1 = new SqlParameter("@CourseId", id);
-            var t = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("GetCourseById", param1).FirstOrDefault();
+            //SqlParameter param1 = new SqlParameter("@CourseId", id);
+            //var t = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("GetCourseById", param1).FirstOrDefault();
+            NpgsqlParameter param1 = new NpgsqlParameter("course_id", id);
+            var t = PostgreSQLDataAccess.ExecuteFunction<AdminCourse>("get_course_by_id", param1).FirstOrDefault();
             return t;
         }
 
@@ -31,32 +36,29 @@ namespace StagecraftDAL.Services
         {
             try
             {
-                SqlParameter param1 = new SqlParameter("@pCourseID", course.courses_id);
-                SqlParameter param2 = new SqlParameter("@pCourseName", course.courses_name);
-                SqlParameter param3 = new SqlParameter("@pTitle", course.title);
-                SqlParameter param4 = new SqlParameter("@pDescription", course.description);
-                SqlParameter param5 = new SqlParameter("@pCreate_at", course.create_at);
-                SqlParameter param6 = new SqlParameter("@pUpdate_at", course.update_at);
-                SqlParameter param7 = new SqlParameter("@pPrice", course.price);
-                SqlParameter param8 = new SqlParameter("@pSeveral_chapters", course.Several_chapters);
-                SqlParameter param9 = new SqlParameter("@pLength", course.Length);
-                SqlParameter param10 = new SqlParameter("@pNumberOfViewers", course.numberOfViewers);
-                SqlParameter param11 = new SqlParameter("@pVideoURL", course.videoURL);
-                SqlParameter param12 = new SqlParameter("@pTaskFilesURL", course.taskFilesURL);
+                NpgsqlParameter[] parameters = [
+                    new NpgsqlParameter("pcourse_id", course.courses_id),
+                    new NpgsqlParameter("ptitle", course.title),
+                    new NpgsqlParameter("pcourse_name", course.courses_name),
+                    new NpgsqlParameter("pdescription", course.description),
+                    new NpgsqlParameter("pcreate_at", course.create_at),
+                    new NpgsqlParameter("pupdate_at", course.update_at),
+                    new NpgsqlParameter("pprice", course.price),
+                    new NpgsqlParameter("pseveral_chapters", course.Several_chapters),
+                    new NpgsqlParameter("plength", course.Length),
+                    new NpgsqlParameter("pnumber_of_viewers", course.numberOfViewers),
+                    new NpgsqlParameter("pvideo_url", course.videoURL),
+                    new NpgsqlParameter("ptask_files_url", course.taskFilesURL)
+                ];
 
-                var t = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("AddCourse_SP", param1, param2, param3, param4, param5, param6, param7, param8, param9, param10, param11, param12);
-
-
-                Console.WriteLine(t);
+                var t = PostgreSQLDataAccess.ExecuteFunction<AdminCourse>("add_course_sp", parameters);
                 return t;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in AddAdminCourses: {ex.Message}");
                 return new List<AdminCourse>(); // החזרה של רשימה ריקה במקרה של שגיאה
             }
         }
-
 
         public List<AdminCourse> UpdateAdminCourses(int id, AdminCourse updatedCourse)
         {

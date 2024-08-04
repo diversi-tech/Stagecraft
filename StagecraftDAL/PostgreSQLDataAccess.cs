@@ -24,6 +24,7 @@ namespace StagecraftDAL
             {
                 connection.Open();
 
+                // הכנה לפקודה עם שימוש בפרמטרים
                 var parameterPlaceholders = parameters != null
                     ? string.Join(", ", parameters.Select((p, i) => $"@p{i}"))
                     : string.Empty;
@@ -51,6 +52,59 @@ namespace StagecraftDAL
             }
 
             return result;
+        }
+        public static T ExecuteSimpleTypeFunction<T>(string functionName, List<NpgsqlParameter> parameters = null)
+        {
+            using (var connection = new NpgsqlConnection(_connection))
+            {
+                connection.Open();
+
+                // הכנה לפקודה עם שימוש בפרמטרים
+                var parameterPlaceholders = parameters != null
+                    ? string.Join(", ", parameters.Select((p, i) => $"@p{i}"))
+                    : string.Empty;
+
+                using (var command = new NpgsqlCommand($"SELECT {functionName}({parameterPlaceholders});", connection))
+                {
+                    if (parameters != null)
+                    {
+                        for (int i = 0; i < parameters.Count; i++)
+                        {
+                            command.Parameters.AddWithValue($"@p{i}", parameters[i].Value);
+                        }
+                    }
+
+                    var result = command.ExecuteScalar();
+
+                    return ConvertTo<T>(result);
+                }
+            }
+
+        }
+
+        private static T ConvertTo<T>(object value)
+        {
+            if (value == DBNull.Value || value == null)
+            {
+                return default;
+            }
+
+            // Handle different types
+            if (typeof(T) == typeof(bool))
+            {
+                return (T)(object)Convert.ToBoolean(value);
+            }
+            if (typeof(T) == typeof(int))
+            {
+                return (T)(object)Convert.ToInt32(value);
+            }
+            if (typeof(T) == typeof(string))
+            {
+                return (T)(object)value.ToString();
+            }
+
+            // Add more type conversions as needed
+            throw new InvalidCastException($"Cannot convert type {value.GetType()} to {typeof(T)}");
         }
 
         private static void MapReaderToObj<T>(NpgsqlDataReader reader, T obj) where T : new()
