@@ -9,14 +9,23 @@ namespace StagecraftDAL.Interface
 {
     public interface IForum
     {
+        //List<Answer> GetAllAnswers();
+        //List<Answer> AddAnswer(Answer answer);
+        //List<Answer> UpdateAnswer(int id, Answer answer);
+        //List<Answer> DeleteAnswer(int id);
+        //List<Question> GetAllQuestions();
+        //bool AddQuestion(Question question);
+        //List<Question> UpdateQuestion(int id,Question question);
+        //List<Question> DeleteQuestion(int id);
         List<Answer> GetAllAnswers();
-        List<Answer> AddAnswer(Answer answer);
+        List<Answer> GetAnswersByQuestionId(int questionId); // New method
+        bool AddAnswer(Answer answer);
         List<Answer> UpdateAnswer(int id, Answer answer);
-        List<Answer> DeleteAnswer(int id);
+        List<Answer> DeleteAnswer(int id, Answer answer);
         List<Question> GetAllQuestions();
         bool AddQuestion(Question question);
-        List<Question> UpdateQuestion(int id,Question question);
+        List<Question> UpdateQuestion(int id, Question question);
         List<Question> DeleteQuestion(int id);
-        
+
     }
 }
