@@ -105,10 +105,13 @@ namespace StagecraftDAL.Services
             SqlParameter param2 = new SqlParameter("@QuestionId", answer.QuestionId);
             SqlParameter param3 = new SqlParameter("@Text", answer.Text);
             SqlParameter param4 = new SqlParameter("@CreatedAt", answer.CreatedAt);
-
             DataAccess.ExecuteStoredProcedure("AddAnswer", param2, param3, param4);          
+            var t = SQLDataAccess.ExecuteStoredProcedure<List<Answer>>("AddAnswer", param2, param3, param4);
+            Console.WriteLine(t);
             return true;
         }
+
+       
 
         public bool AddQuestion(Question question)
         {
@@ -123,20 +126,20 @@ namespace StagecraftDAL.Services
         public List<Answer> DeleteAnswer(int id,Answer answer)
         {
             SqlParameter param1 = new SqlParameter("@AnswerId", id);
-            var t = DataAccess.ExecuteStoredProcedure<List<Answer>>("DeleteAnswer", param1);
+            var t = SQLDataAccess.ExecuteStoredProcedure<List<Answer>>("DeleteAnswer", param1);
             return t;
         }
 
         public List<Question> DeleteQuestion(int id)
         {
             SqlParameter param1 = new SqlParameter("@QuestionId", id);
-            var t = DataAccess.ExecuteStoredProcedure<List<Question>>("DeleteQuestion", param1);
+            var t = SQLDataAccess.ExecuteStoredProcedure<List<Question>>("DeleteQuestion", param1);
             return t;
         }
 
         public List<Answer> GetAllAnswers()
         {
-            var t = DataAccess.ExecuteStoredProcedure<List<Answer>>("GetAllAnswers", null);
+            var t = SQLDataAccess.ExecuteStoredProcedure<List<Answer>>("GetAllAnswers", null);
             return t;
         }
 
@@ -152,7 +155,7 @@ namespace StagecraftDAL.Services
 
         public List<Question> GetAllQuestions()
         {
-            var t = DataAccess.ExecuteStoredProcedure<List<Question>>("GetAllQuestions", null);
+            var t = SQLDataAccess.ExecuteStoredProcedure<List<Question>>("GetAllQuestions", null);
             return t;
         }
 
@@ -163,7 +166,7 @@ namespace StagecraftDAL.Services
             SqlParameter param3 = new SqlParameter("@Text", answer.Text);
             SqlParameter param4 = new SqlParameter("@CreatedAt", answer.CreatedAt);
 
-            var t = DataAccess.ExecuteStoredProcedure<List<Answer>>("UpdateAnswer", param1, param2, param3, param4);
+            var t = SQLDataAccess.ExecuteStoredProcedure<List<Answer>>("UpdateAnswer", param1, param2, param3, param4);
             return t;
         }
 
@@ -173,7 +176,7 @@ namespace StagecraftDAL.Services
             SqlParameter param2 = new SqlParameter("@Text", question.Text);
             SqlParameter param3 = new SqlParameter("@CreatedAt", question.CreatedAt);
 
-            var t = DataAccess.ExecuteStoredProcedure<List<Question>>("UpdateQuestion", param1, param2, param3);
+            var t = SQLDataAccess.ExecuteStoredProcedure<List<Question>>("UpdateQuestion", param1, param2, param3);
             return t;
         }
     }

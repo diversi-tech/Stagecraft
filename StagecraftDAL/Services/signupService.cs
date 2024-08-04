@@ -15,7 +15,7 @@ namespace StagecraftDAL.Services
 
             try
             {
-                var userId = DataAccess.ExecuteStoredProcedure<int>("RegisterUser", param1, param2, param3, param4);
+                var userId = SQLDataAccess.ExecuteStoredProcedure<int>("RegisterUser", param1, param2, param3, param4);
                 return userId;
             }
             catch (SqlException ex)

@@ -1,6 +1,7 @@
 ﻿using Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StagecraftApi.JwtManager;
 using StagecraftDAL.Interface;
 using System.Data.SqlClient;
 
@@ -21,6 +22,8 @@ namespace StagecraftApi.Controllers
             var question = _forum.GetAllQuestions();
             return Ok(question);
         }
+        [StagecraftApi.JwtManager.Authorize(Roles.User)]
+
         [HttpPost("AddQuestion")]
         public ActionResult<string> AddQuestion([FromBody] Question question)
         {
@@ -33,6 +36,8 @@ namespace StagecraftApi.Controllers
             //return CreatedAtAction(nameof(AddQuestion), new { id = question.QuestionId }, question);
 
         }
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
+
         [HttpPut("UpdateQuestion/{id}")]
         public IActionResult UpdateQuestion(int id, [FromBody] Question question)
         {
@@ -47,6 +52,8 @@ namespace StagecraftApi.Controllers
             }
             return NoContent();
         }
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
+
         [HttpDelete("DeleteQuestion/{id}")]
         public IActionResult DeleteQuestion(int id)
         {
@@ -57,12 +64,14 @@ namespace StagecraftApi.Controllers
             }
             return Ok(deletedQuestion);
         }
+
         [HttpGet("GetAllAnswers")]
         public ActionResult<IEnumerable<Answer>> GetAllAnswers()
         {
             var question = _forum.GetAllAnswers();
             return Ok(question);
         }
+
         //[HttpPost("AddAnswer")]
         //public ActionResult<Answer> AddAnswer([FromBody] Answer answer)
         //{
@@ -103,8 +112,11 @@ namespace StagecraftApi.Controllers
         //    var newAnswer = _forum.AddAnswer(answer);
         //    return CreatedAtAction(nameof(AddAnswer), new { id = newAnswer.AnswerId }, newAnswer);
         //}
-        [HttpPost("AddAnswer/{questionId}")]
-        public ActionResult<string> AddAnswer(int questionId ,[FromBody] Answer answer)
+
+
+        [HttpPost("AddAnswer")]
+        public ActionResult<Answer> AddAnswer(int questionId,[FromBody] Answer answer)
+
         {
             if (!ModelState.IsValid)
             {
@@ -118,6 +130,8 @@ namespace StagecraftApi.Controllers
 
         }
 
+
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
 
         [HttpPut("UpdateAnswer/{id}")]
         public IActionResult UpdateAnswer(int id, [FromBody] Answer answer)
@@ -133,8 +147,15 @@ namespace StagecraftApi.Controllers
             }
             return NoContent();
         }
+
         [HttpPost("DeleteAnswer/{id}")]
-        public IActionResult DeleteAnswer1(int id,Answer answer)
+    
+
+        [StagecraftApi.JwtManager.Authorize(Roles.Admin)]
+
+        [HttpDelete("DeleteAnswer/{id}")]
+        public IActionResult DeleteAnswer(int id,Answer answer)
+
         {
             var deletedAnswer = _forum.DeleteAnswer(id,answer);
             if (deletedAnswer == null)
