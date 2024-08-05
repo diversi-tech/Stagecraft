@@ -17,7 +17,6 @@ namespace StagecraftDAL.Services
 
         public List<AdminCourse> GetAllAdminCourses()
         {
-            //var t = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("GetAllCourses", null);
             var t = PostgreSQLDataAccess.ExecuteFunction<AdminCourse>("get_all_courses");
 
             return t;
@@ -25,8 +24,6 @@ namespace StagecraftDAL.Services
 
         public AdminCourse GetAdminCourseById(int id)
         {
-            //SqlParameter param1 = new SqlParameter("@CourseId", id);
-            //var t = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("GetCourseById", param1).FirstOrDefault();
             NpgsqlParameter param1 = new NpgsqlParameter("course_id", id);
             var t = PostgreSQLDataAccess.ExecuteFunction<AdminCourse>("get_course_by_id", param1).FirstOrDefault();
             return t;
@@ -76,21 +73,6 @@ namespace StagecraftDAL.Services
                 var courses = PostgreSQLDataAccess.ExecuteFunction<AdminCourse>("update_course_sp", param1, param2, param3, param4, param6, param7, param8, param9, param11, param12);
 
                 return courses;
-                //SqlParameter param1 = new SqlParameter("@pCourseID", id);
-                //SqlParameter param2 = new SqlParameter("@pCourseName", updatedCourse.courses_name);
-                //SqlParameter param3 = new SqlParameter("@pTitle", updatedCourse.title);
-                //SqlParameter param4 = new SqlParameter("@pDescription", updatedCourse.description);
-                //SqlParameter param5 = new SqlParameter("@pUpdate_at", updatedCourse.update_at);
-                //SqlParameter param6 = new SqlParameter("@pPrice", updatedCourse.price);
-                //SqlParameter param7 = new SqlParameter("@pSeveral_chapters", updatedCourse.Several_chapters);
-                //SqlParameter param8 = new SqlParameter("@pLength", updatedCourse.Length);
-                //SqlParameter param9 = new SqlParameter("@pNumberOfViewers", updatedCourse.numberOfViewers);
-                //SqlParameter param11 = new SqlParameter("@pVideoURL", updatedCourse.videoURL);
-                //SqlParameter param12 = new SqlParameter("@pTaskFilesURL", updatedCourse.taskFilesURL);
-
-                //var courses = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("UpdateCourse_SP", param1, param2, param3, param4, param5, param6, param7, param8, param9, param11, param12);
-
-                //return courses;
             }
             catch (Exception ex)
             {
@@ -104,22 +86,19 @@ namespace StagecraftDAL.Services
             NpgsqlParameter param1 = new NpgsqlParameter("pcourse_id", id);
             var t = PostgreSQLDataAccess.ExecuteFunction<AdminCourse>("delete_course_sp", param1);
             return t;
-            //SqlParameter param1 = new SqlParameter("@pCourseID", id);
-            //var t = SQLDataAccess.ExecuteStoredProcedure<List<AdminCourse>>("DeleteCourse_SP", param1);
-            //return t;
         }
         public List<Users> GetAllUsers()
         {
-            var t = SQLDataAccess.ExecuteStoredProcedure<List<Users>>("GetAllUsers", null);
+            var t = PostgreSQLDataAccess.ExecuteFunction<Users>("get_all_users");
             return t;
         }
 
         public bool AddCoursToUser(UserCourses userCourses)
         {
-            SqlParameter param1 = new SqlParameter("@userId", userCourses.userId);
-            SqlParameter param2 = new SqlParameter("@coursId", userCourses.coursesId);
-            SqlParameter param3 = new SqlParameter("@isApproved", userCourses.isApproved);
-            var t = SQLDataAccess.ExecuteStoredProcedure<bool>("AddCoursToUser", param1, param2, param3);
+            NpgsqlParameter param1 = new NpgsqlParameter("puser_id", userCourses.userId);
+            NpgsqlParameter param2 = new NpgsqlParameter("pcours_id", userCourses.coursesId);
+            NpgsqlParameter param3 = new NpgsqlParameter("pis_approved", userCourses.isApproved);
+            var t = PostgreSQLDataAccess.ExecuteSimpleTypeFunction<bool>("add_cours_to_user", param1, param2, param3);
             return t;
         }
 

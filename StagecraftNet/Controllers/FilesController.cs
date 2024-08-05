@@ -20,8 +20,7 @@ namespace StagecraftApi.Controllers
 
         }
 
-        [StagecraftApi.JwtManager.Authorize(Roles.User)]
-
+        [Authorize(Roles.User)]
         [HttpGet("{VideoId}")]
         public IActionResult DownloadTaskFiles(int VideoId)
         {

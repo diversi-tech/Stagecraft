@@ -91,6 +91,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common;
+using Npgsql;
 using StagecraftDAL.Interface;
 
 namespace StagecraftDAL.Services
@@ -105,16 +106,21 @@ namespace StagecraftDAL.Services
             SqlParameter param2 = new SqlParameter("@QuestionId", answer.QuestionId);
             SqlParameter param3 = new SqlParameter("@Text", answer.Text);
             SqlParameter param4 = new SqlParameter("@CreatedAt", answer.CreatedAt);
-            DataAccess.ExecuteStoredProcedure("AddAnswer", param2, param3, param4);          
+            DataAccess.ExecuteStoredProcedure("AddAnswer", param2, param3, param4);
             var t = SQLDataAccess.ExecuteStoredProcedure<List<Answer>>("AddAnswer", param2, param3, param4);
             Console.WriteLine(t);
             return true;
         }
 
-       
+
 
         public bool AddQuestion(Question question)
         {
+            //    NpgsqlParameter param2 = new NpgsqlParameter("ptext", question.Text);
+            //    NpgsqlParameter param3 = new NpgsqlParameter("pcreated_at", question.CreatedAt);
+            //    ????
+            //    PostgreSQLDataAccess.ExecuteSimpleTypeFunction<bool>("add_question", param2, param3);
+
             SqlParameter param2 = new SqlParameter("@Text", question.Text);
             SqlParameter param3 = new SqlParameter("@CreatedAt", question.CreatedAt);
 
@@ -123,7 +129,7 @@ namespace StagecraftDAL.Services
             return true;
         }
 
-        public List<Answer> DeleteAnswer(int id,Answer answer)
+        public List<Answer> DeleteAnswer(int id, Answer answer)
         {
             SqlParameter param1 = new SqlParameter("@AnswerId", id);
             var t = SQLDataAccess.ExecuteStoredProcedure<List<Answer>>("DeleteAnswer", param1);
@@ -145,17 +151,15 @@ namespace StagecraftDAL.Services
 
         public List<Answer> GetAnswersByQuestionId(int questionId)
         {
-            SqlParameter param = new SqlParameter("@QuestionId", questionId);
-
-            var answers = DataAccess.ExecuteStoredProcedure<List<Answer>>("GetAnswersByQuestionId", param);
-
+            NpgsqlParameter param = new NpgsqlParameter("pquestion_id", questionId);
+            var answers = PostgreSQLDataAccess.ExecuteFunction<Answer>("get_answers_by_question_id", param);
             return answers;
         }
 
 
         public List<Question> GetAllQuestions()
         {
-            var t = SQLDataAccess.ExecuteStoredProcedure<List<Question>>("GetAllQuestions", null);
+            var t = PostgreSQLDataAccess.ExecuteFunction<Question>("get_all_questions");
             return t;
         }
 

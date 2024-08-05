@@ -1,4 +1,5 @@
-﻿using StagecraftDAL.Interface;
+﻿using Npgsql;
+using StagecraftDAL.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -13,8 +14,8 @@ namespace StagecraftDAL.Services
         public const string FileAdminPath = @"C:\\Users\\משתמש\\Desktop\\dowenload_files\\adminFiles\\";
         public string DownloadTaskFiles(int VideoId)
         {
-            SqlParameter param1 = new SqlParameter("@VideoId", VideoId);
-            var t = SQLDataAccess.ExecuteStoredProcedure<string>("DownloadTaskFiles", param1);
+            NpgsqlParameter param1 = new NpgsqlParameter("pvideo_id", VideoId);
+            var t = PostgreSQLDataAccess.ExecuteSimpleTypeFunction<string>("download_task_files", param1);
 
             return Path.Combine(FileAdminPath, t);
         }

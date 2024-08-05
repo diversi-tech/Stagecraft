@@ -20,37 +20,12 @@ namespace StagecraftDAL.Services
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
-
         public Videos GetVideoById(int videoId)
         {
-
             NpgsqlParameter param1 = new NpgsqlParameter("pvideo_id", videoId);
             var t = PostgreSQLDataAccess.ExecuteFunction<Videos>("get_video_by_id", param1).FirstOrDefault();
 
             return t;
-            //Videos video = null;
-            //using (var connection = new SqlConnection(_connectionString))
-            //using (var command = new SqlCommand("GetVideoById", connection))
-            //{
-            //    command.CommandType = CommandType.StoredProcedure;
-            //    command.Parameters.AddWithValue("@VideoId", videoId);
-
-            //    connection.Open();
-            //    using (var reader = command.ExecuteReader())
-            //    {
-            //        if (reader.Read())
-            //        {
-            //            video = new Videos
-            //            {
-            //                video_id = (int)reader["video_id"],
-            //                courses_id = (int)reader["courses_id"],
-            //                video_name = (string)reader["video_name"],
-            //                video_length = (int)reader["video_length"]
-            //            };
-            //        }
-            //    }
-            //}
-            //return video;
         }
 
         public List<TranscriptSegment> GetTranscriptionByVideoId(int videoId)
