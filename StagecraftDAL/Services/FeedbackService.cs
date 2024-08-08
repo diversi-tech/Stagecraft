@@ -1,5 +1,6 @@
 ﻿using Common;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 using StagecraftDAL.Interface;
 using System;
 using System.Collections.Generic;
@@ -27,11 +28,11 @@ namespace StagecraftDAL.Services
         {
             var parameters = new[]
             {
-                new SqlParameter("@UserId", UserId),
-                new SqlParameter("@CourseId", CourseId)
+                new NpgsqlParameter("p_user_id", UserId),
+                new NpgsqlParameter("p_course_id", CourseId)
             };
 
-            return SQLDataAccess.ExecuteStoredProcedure<List<Feedback>>("GetFeedbackByUserCourseClass", parameters);
+            return PostgreSQLDataAccess.ExecuteFunction<Feedback>("get_feedback_by_user_course_class", parameters);
         }
     }
 }

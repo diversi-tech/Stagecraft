@@ -1,4 +1,5 @@
-﻿using StagecraftDAL.Interface;
+﻿using Npgsql;
+using StagecraftDAL.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -12,13 +13,13 @@ namespace StagecraftDAL.Services
     {
         public int UpdateUserProgress(int userId, int courseId, int classId)
         {
-            SqlParameter param1 = new SqlParameter("@UserID", userId);
-            SqlParameter param2 = new SqlParameter("@CourseID", courseId);
-            SqlParameter param3 = new SqlParameter("@ClassID", classId);
+            NpgsqlParameter param1 = new NpgsqlParameter("p_user_id", userId);
+            NpgsqlParameter param2 = new NpgsqlParameter("p_course_id", courseId);
+            NpgsqlParameter param3 = new NpgsqlParameter("p_class_id", classId);
 
             try
             {
-                var result = SQLDataAccess.ExecuteStoredProcedure<int>("UpdateUserProgress", param1, param2, param3);
+                var result = PostgreSQLDataAccess.ExecuteSimpleTypeFunction<int>("update_user_progress", param1, param2, param3);
                 return result;
             }
             catch (SqlException ex)
